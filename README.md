@@ -1,5 +1,5 @@
 # Random Algorithms in Python
 
-Nothing much, just some solutions to random problems I find. I hope whatever is here is right.
+Just solutions to random problems I find. I have 100+ leetcode solutions here as well. Check the `leetcode/` dir for the problems.
 
 If you want to contribute, go ahead!
