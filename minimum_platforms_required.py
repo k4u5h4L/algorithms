@@ -60,6 +60,3 @@ n = len(arr)
 
 print("Minimum Number of Platforms Required = ",
 	findPlatform(arr, dep, n))
-
-# This code is contributed
-# by Anant Agarwal.
