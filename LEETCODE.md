@@ -1,6 +1,8 @@
 
 # leetcode programs:
 
+## Binary Tree Preorder Traversal
+
 ```py
 '''
  Binary Tree Preorder Traversal
@@ -31,6 +33,9 @@ class Solution:
         self.preorder(root.left, res)
         self.preorder(root.right, res)
 ```
+
+## Check if Word Equals Summation of Two Words
+
 ```py
 '''
 Check if Word Equals Summation of Two Words
@@ -58,6 +63,9 @@ class Solution:
         s = int(''.join(s))
         return (s1 + s2) == s
 ```
+
+## Container With Most Water
+
 ```py
 '''
 Container With Most Water
@@ -84,6 +92,9 @@ class Solution:
         
         return max_area
 ```
+
+## Word Pattern
+
 ```py
 '''
 Word Pattern
@@ -145,6 +156,9 @@ class Solution:
         return True
 
 ```
+
+## Find Minimum in Rotated Sorted Array
+
 ```py
 '''
 Find Minimum in Rotated Sorted Array
@@ -198,6 +212,9 @@ class Solution:
         return nums[left]
 
 ```
+
+## Largest Odd Number in String
+
 ```py
 '''
 Largest Odd Number in String
@@ -240,6 +257,9 @@ class Solution:
         return ""
 
 ```
+
+## Product of Array Except Self
+
 ```py
 '''
 Product of Array Except Self
@@ -274,6 +294,9 @@ class Solution:
 
         return res
 ```
+
+## Rotate Array
+
 ```py
 '''
 Rotate Array
@@ -291,6 +314,9 @@ class Solution:
             temp = nums.pop()
             nums.insert(0, temp)
 ```
+
+## Move Zeroes
+
 ```py
 '''
 Move Zeroes
@@ -312,6 +338,9 @@ class Solution:
         for _ in range(num_zeros):
             nums.append(0)
 ```
+
+## Max Area of Island
+
 ```py
 '''
 Max Area of Island
@@ -364,6 +393,9 @@ class Solution:
         return area[0]
 
 ```
+
+## Subtract the Product and Sum of Digits of an Integer
+
 ```py
 '''
 Subtract the Product and Sum of Digits of an Integer
@@ -384,7 +416,10 @@ class Solution:
         return (pdt - sum(n))
         
 ```
-```py
+
+## Valid Palindrome
+
+```js
 /*
 Valid Palindrome
 Easy
@@ -404,6 +439,9 @@ var isPalindrome = function (s) {
 };
 
 ```
+
+## Missing Number
+
 ```py
 '''
 Missing Number
@@ -420,6 +458,9 @@ class Solution:
         actual_sum = sum(nums)
         return expected_sum - actual_sum
 ```
+
+## Contains Duplicate
+
 ```py
 '''
 Contains Duplicate
@@ -438,6 +479,9 @@ class Solution:
                 dups[num] = True
         return False
 ```
+
+## Backspace String Compare
+
 ```py
 '''
 Backspace String Compare
@@ -472,6 +516,9 @@ class Solution:
                 
         return stack_s == stack_t
 ```
+
+## Add Digits
+
 ```py
 '''
 Add Digits
@@ -496,6 +543,9 @@ class Solution:
             
         return sum1
 ```
+
+## Two Sum II- Input array is sorted
+
 ```py
 '''
 Two Sum II - Input array is sorted
@@ -521,6 +571,9 @@ class Solution:
                 return [left+1, right+1]
         return [-1, -1]
 ```
+
+## Find Smallest Letter Greater Than Target
+
 ```py
 '''
 Find Smallest Letter Greater Than Target
@@ -576,6 +629,9 @@ class Solution:
             
 
 ```
+
+## Valid Parentheses
+
 ```py
 '''
 Valid Parentheses
@@ -609,6 +665,9 @@ class Solution:
         return True if len(stack) == 0 else False
 
 ```
+
+## Happy Number
+
 ```py
 '''
 Happy Number
@@ -652,6 +711,9 @@ class Solution:
         return True
 
 ```
+
+## Largest Number At Least Twice of Others
+
 ```py
 '''
 Largest Number At Least Twice of Others
@@ -700,6 +762,9 @@ class Solution:
         return -1
 
 ```
+
+## Range Sum of BST
+
 ```py
 '''
 Range Sum of BST
@@ -755,6 +820,9 @@ class Solution:
             self.inorder(root.right, low, high, res)
 
 ```
+
+## Majority Element
+
 ```py
 '''
 Majority Element
@@ -781,6 +849,9 @@ class Solution:
                 max_val = value
         return max_ele
 ```
+
+## Diameter of Binary Tree
+
 ```py
 '''
 Diameter of Binary Tree
@@ -832,6 +903,9 @@ class Solution:
         return max(left, right) + 1;
 
 ```
+
+## Range Sum Query-Immutable
+
 ```py
 '''
 Range Sum Query - Immutable
@@ -862,6 +936,9 @@ class NumArray:
 # param_1 = obj.sumRange(left,right)
 
 ```
+
+## Increasing Order Search Tree
+
 ```py
 '''
 Increasing Order Search Tree
@@ -902,6 +979,9 @@ class Solution:
         tree.append(root.val)
         self.make_bst(root.right, tree)
 ```
+
+## Convert Binary Number in a Linked List to Integer
+
 ```py
 '''
 Convert Binary Number in a Linked List to Integer
@@ -933,6 +1013,9 @@ class Solution:
                 
         return deci
 ```
+
+## Valid Palindrome II
+
 ```py
 '''
 Valid Palindrome II
@@ -961,6 +1044,9 @@ class Solution:
         return True
 
 ```
+
+## Maximum Product Subarray
+
 ```py
 '''
 Maximum Product Subarray
@@ -990,6 +1076,9 @@ class Solution:
                 max_pdt = max(max_pdt, cur_max)
         return max_pdt
 ```
+
+## Sqrt x
+
 ```py
 '''
 Sqrt(x)
@@ -1011,6 +1100,9 @@ class Solution:
             i += 1
         return i - 1
 ```
+
+## Detect Capital
+
 ```py
 '''
 Detect Capital
@@ -1037,6 +1129,9 @@ class Solution:
         
         return False
 ```
+
+## Merge Strings Alternately
+
 ```py
 '''
 Merge Strings Alternately
@@ -1105,6 +1200,9 @@ class Solution:
         return res
 
 ```
+
+## Find All Duplicates in an Array
+
 ```py
 '''
 Find All Duplicates in an Array
@@ -1130,6 +1228,9 @@ class Solution:
                 dic.pop(i)
         return res
 ```
+
+## Find First and Last Position of Element in Sorted Array
+
 ```py
 '''
 Find First and Last Position of Element in Sorted Array
@@ -1183,6 +1284,9 @@ class Solution:
                 
         return index
 ```
+
+## Find the Highest Altitude
+
 ```py
 '''
 Find the Highest Altitude
@@ -1202,6 +1306,9 @@ class Solution:
             
         return max(net_alt)
 ```
+
+## Insert into a Binary Search Tree
+
 ```py
 '''
 Insert into a Binary Search Tree
@@ -1260,6 +1367,9 @@ class Solution:
         return root
 
 ```
+
+## Squares of a Sorted Array
+
 ```py
 '''
 Squares of a Sorted Array
@@ -1296,6 +1406,9 @@ class Solution:
             l2 += 1
         return res
 ```
+
+## Add Strings
+
 ```py
 '''
 Add Strings
@@ -1310,6 +1423,9 @@ class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
         return str(int(num1) + int(num2))
 ```
+
+## Fibonacci Number
+
 ```py
 '''
 Fibonacci Number
@@ -1335,6 +1451,9 @@ class Solution:
             memo[n] = self.fib(n-1, memo) + self.fib(n-2, memo)
             return memo[n]
 ```
+
+## First Missing Positive
+
 ```py
 '''
 First Missing Positive
@@ -1357,6 +1476,9 @@ class Solution:
             min_pos += 1
         return min_pos
 ```
+
+## Remove Duplicates from Sorted Array II
+
 ```py
 '''
 Remove Duplicates from Sorted Array II
@@ -1423,6 +1545,9 @@ class Solution:
         return left
 
 ```
+
+## Climbing Stairs
+
 ```py
 '''
 Climbing Stairs
@@ -1449,6 +1574,9 @@ class Solution:
             memo[start] = self.total_ways(start+1, end, memo) + self.total_ways(start+2, end, memo)
             return memo[start]
 ```
+
+## Merge Intervals
+
 ```py
 '''
 Merge Intervals
@@ -1487,6 +1615,9 @@ class Solution:
         return False
 
 ```
+
+## Linked List Cycle
+
 ```py
 '''
 Linked List Cycle
@@ -1518,6 +1649,9 @@ class Solution:
             slow = slow.next
         return False
 ```
+
+## Invert Binary Tree
+
 ```py
 '''
 Invert Binary Tree
@@ -1545,6 +1679,9 @@ class Solution:
         
         return root
 ```
+
+## Power of Four
+
 ```py
 '''
 Power of Four
@@ -1569,6 +1706,9 @@ class Solution:
             n = int(n / 4)
         return True
 ```
+
+## Find the Duplicate Number
+
 ```py
 '''
 Find the Duplicate Number
@@ -1596,6 +1736,9 @@ class Solution:
 #             if nums[i-1] == nums[i]:
 #                 return nums[i]
 ```
+
+## Single Number
+
 ```py
 '''
 Single Number
@@ -1619,6 +1762,9 @@ class Solution:
                 return i
         return -1
 ```
+
+## Set Matrix Zeroes
+
 ```py
 '''
 Set Matrix Zeroes
@@ -1659,6 +1805,9 @@ class Solution:
                         matrix[i][k] = 0
 
 ```
+
+## Merge Two Binary Trees
+
 ```py
 '''
 Merge Two Binary Trees
@@ -1690,6 +1839,9 @@ class Solution:
         root1.right = self.mergeTrees(root1.right, root2.right)
         return root1
 ```
+
+## Sort Array By Parity
+
 ```py
 '''
 Sort Array By Parity
@@ -1714,6 +1866,9 @@ class Solution:
                 
         return res
 ```
+
+## Peak Index in a Mountain Array
+
 ```py
 '''
 Peak Index in a Mountain Array
@@ -1733,6 +1888,9 @@ class Solution:
     def peakIndexInMountainArray(self, arr: List[int]) -> int:
         return arr.index(max(arr))
 ```
+
+## Remove Duplicates from Sorted Array
+
 ```py
 '''
 Remove Duplicates from Sorted Array
@@ -1756,6 +1914,9 @@ class Solution:
                 nums.remove(i)
         return len(nums)
 ```
+
+## Minimum Index Sum of Two Lists
+
 ```py
 '''
 Minimum Index Sum of Two Lists
@@ -1816,6 +1977,9 @@ class Solution:
         return res
 
 ```
+
+## Symmetric Tree
+
 ```py
 '''
 Symmetric Tree
@@ -1859,6 +2023,9 @@ class Solution:
         return self.is_symmetric(left.left, right.right) and self.is_symmetric(left.right, right.left)
 
 ```
+
+## Determine if String Halves Are Alike
+
 ```py
 '''
 Determine if String Halves Are Alike
@@ -1902,6 +2069,9 @@ class Solution:
         
         return (True if c1 == c2 else False)
 ```
+
+## Number of 1 Bits
+
 ```py
 '''
 Number of 1 Bits
@@ -1925,6 +2095,9 @@ class Solution:
             n = int(n/2)
         return res.count(1)
 ```
+
+## Power of Three
+
 ```py
 '''
 Power of Three
@@ -1949,6 +2122,9 @@ class Solution:
             n = int(n / 3)
         return True
 ```
+
+## Minimum Depth of Binary Tree
+
 ```py
 '''
 Minimum Depth of Binary Tree
@@ -1977,6 +2153,9 @@ class Solution:
             return 1 + self.minDepth(root.left)
         return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
 ```
+
+## Search Insert Position
+
 ```py
 '''
 Search Insert Position
@@ -2009,6 +2188,9 @@ class Solution:
             return possible_place
 
 ```
+
+## Number of Islands
+
 ```py
 '''
 Number of Islands
@@ -2040,6 +2222,9 @@ class Solution:
         self.dfs(grid, i, j-1)
         return 1
 ```
+
+## Power of Two
+
 ```py
 '''
 Power of Two
@@ -2062,6 +2247,9 @@ class Solution:
             n = int(n / 2)
         return True
 ```
+
+## Contains Duplicate II
+
 ```py
 '''
 Contains Duplicate II
@@ -2083,6 +2271,9 @@ class Solution:
                     
         return False
 ```
+
+## Remove Nth Node From End of List
+
 ```py
 '''
 Remove Nth Node From End of List
@@ -2115,6 +2306,9 @@ class Solution:
         return temp.next
 
 ```
+
+## Binary Tree Postorder Traversal
+
 ```py
 '''
 Binary Tree Postorder Traversal
@@ -2145,6 +2339,9 @@ class Solution:
         self.postorder(root.right, res)
         res.append(root.val)
 ```
+
+## Valid Sudoku
+
 ```py
 '''
 Valid Sudoku
@@ -2207,6 +2404,9 @@ class Solution:
 
         return True
 ```
+
+## Remove Linked List Elements
+
 ```py
 '''
 Remove Linked List Elements
@@ -2234,6 +2434,9 @@ class Solution:
             return head
         return head
 ```
+
+## N-th Tribonacci Number
+
 ```py
 '''
 N-th Tribonacci Number
@@ -2258,6 +2461,9 @@ class Solution:
             memo[n] = self.tribonacci(n-1, memo) + self.tribonacci(n-2, memo) + self.tribonacci(n-3, memo)
             return memo[n]
 ```
+
+## Rotate List
+
 ```py
 '''
 Rotate List
@@ -2308,6 +2514,9 @@ class Solution:
         return head
 
 ```
+
+## Maximum Product of Two Elements in an Array
+
 ```py
 '''
 Maximum Product of Two Elements in an Array
@@ -2323,7 +2532,10 @@ class Solution:
         
         return (maxEle-1) * (secMax - 1)
 ```
-```py
+
+## String Matching in an Array
+
+```js
 /*
 String Matching in an Array
 Easy
@@ -2351,6 +2563,9 @@ var stringMatching = function (words) {
 };
 
 ```
+
+## Ugly Number
+
 ```py
 '''
 Ugly Number
@@ -2404,6 +2619,9 @@ class Solution:
         return True
 
 ```
+
+## Subarray Product Less Than K
+
 ```py
 '''
 Subarray Product Less Than K
@@ -2429,6 +2647,9 @@ class Solution:
             right += 1
         return count
 ```
+
+## Implement strStr
+
 ```py
 '''
 Implement strStr()
@@ -2459,6 +2680,9 @@ class Solution:
         return -1
 
 ```
+
+## Battleships in a Board
+
 ```py
 '''
 Battleships in a Board
@@ -2532,6 +2756,9 @@ class Solution:
         return count
 
 ```
+
+## Check if the Sentence Is Pangram
+
 ```py
 '''
 Check if the Sentence Is Pangram
@@ -2552,7 +2779,10 @@ class Solution:
                 return False
         return True
 ```
-```py
+
+## Check If a Word Occurs As a Prefix of Any Word in a Sentence
+
+```js
 /*
 Check If a Word Occurs As a Prefix of Any Word in a Sentence
 Easy
@@ -2587,6 +2817,9 @@ var isPrefixOfWord = function (sentence, searchWord) {
 };
 
 ```
+
+## Unique Paths
+
 ```py
 '''
 Unique Paths
@@ -2611,6 +2844,9 @@ class Solution:
         memo[key] = self.uniquePaths(m-1, n, memo) + self.uniquePaths(m, n-1, memo)
         return memo[key]
 ```
+
+## Find Peak Element
+
 ```py
 '''
 Find Peak Element
@@ -2643,6 +2879,9 @@ class Solution:
         # return -1
         return nums.index(max(nums))
 ```
+
+## Binary Tree Inorder Traversal
+
 ```py
 '''
 Binary Tree Inorder Traversal
@@ -2674,6 +2913,9 @@ class Solution:
         res.append(root.val)
         self.inorder(root.right, res)
 ```
+
+## Rotting Oranges
+
 ```py
 '''
 Rotting Oranges
@@ -2757,6 +2999,9 @@ class Solution:
         return minutes - 1
 
 ```
+
+## Min Stack
+
 ```py
 '''
 Min Stack
@@ -2828,6 +3073,9 @@ class MinStack:
 # param_4 = obj.getMin()
 
 ```
+
+## Count Negative Numbers in a Sorted Matrix
+
 ```py
 '''
 Count Negative Numbers in a Sorted Matrix
@@ -2847,6 +3095,9 @@ class Solution:
                 #     break
         return count
 ```
+
+## Path Sum II
+
 ```py
 '''
 Path Sum II
@@ -2909,6 +3160,9 @@ class Solution:
             self.traverse(root.right, cur_sum + root.val, targetSum, paths, f"{path}->{root.val}")
 
 ```
+
+## Reverse Linked List
+
 ```py
 '''
 Reverse Linked List
@@ -2935,6 +3189,9 @@ class Solution:
             
         return prev
 ```
+
+## Sort Colors
+
 ```py
 '''
 Sort Colors
@@ -2975,7 +3232,10 @@ class Solution:
         nums[i+1], nums[high] = nums[high], nums[i+1]
         return (i+1)
 ```
-```py
+
+## Shuffle the Array
+
+```js
 /*
 Shuffle the Array
 Easy
@@ -2999,6 +3259,9 @@ var shuffle = function (nums, n) {
 };
 
 ```
+
+## Intersection of Two Linked Lists
+
 ```py
 '''
 Intersection of Two Linked Lists
@@ -3042,6 +3305,9 @@ class Solution:
         return cur_a
 
 ```
+
+## Plus One
+
 ```py
 '''
 Plus One
@@ -3060,6 +3326,9 @@ class Solution:
         res = str(int(''.join(res)) + 1)
         return [int(char) for char in res]
 ```
+
+## Maximum Average Subarray I
+
 ```py
 '''
 Maximum Average Subarray I
@@ -3105,6 +3374,9 @@ class Solution:
         return max_avg
 
 ```
+
+## Average Salary Excluding the Minimum and Maximum Salary
+
 ```py
 '''
 Average Salary Excluding the Minimum and Maximum Salary
@@ -3122,6 +3394,9 @@ class Solution:
         
         return sum(salary) / len(salary)
 ```
+
+## Rotate Image
+
 ```py
 '''
 Rotate Image
@@ -3173,7 +3448,10 @@ class Solution:
             
 
 ```
-```py
+
+## Median of Two Sorted Arrays
+
+```js
 /*
 Median of Two Sorted Arrays
 Hard
@@ -3210,6 +3488,9 @@ var findMedianSortedArrays = function (nums1, nums2) {
 };
 
 ```
+
+## Maximum Subarray
+
 ```py
 '''
 Maximum Subarray
@@ -3227,6 +3508,9 @@ class Solution:
             max_sum = max(cur_sum, max_sum)
         return max_sum
 ```
+
+## Element Appearing More Than 25% In Sorted Array
+
 ```py
 '''
 Element Appearing More Than 25% In Sorted Array
@@ -3249,6 +3533,9 @@ class Solution:
             
         return 0
 ```
+
+## Two Sum
+
 ```py
 '''
 Two Sum
@@ -3272,6 +3559,9 @@ class Solution:
         return [-1, -1]
 
 ```
+
+## Validate Binary Search Tree
+
 ```py
 '''
 Validate Binary Search Tree
@@ -3306,6 +3596,9 @@ class Solution:
             return self.isValid(root.left, root.val, min_val) and self.isValid(root.right, max_val, root.val) 
 
 ```
+
+## XOR Operation in an Array
+
 ```py
 '''
 XOR Operation in an Array
@@ -3326,6 +3619,9 @@ class Solution:
             
         return exor
 ```
+
+## Counting Bits
+
 ```py
 '''
 Counting Bits
@@ -3354,6 +3650,9 @@ class Solution:
         result.reverse()
         return result
 ```
+
+## longest substring without repeating chars
+
 ```py
 """
 Longest Substring Without Repeating Characters
@@ -3383,6 +3682,9 @@ class Solution:
             
         return max_len;
 ```
+
+## Length of Last Word
+
 ```py
 '''
 Length of Last Word
@@ -3404,6 +3706,9 @@ class Solution:
             return 0
 
 ```
+
+## The kth Factor of n
+
 ```py
 '''
 The kth Factor of n
@@ -3428,6 +3733,9 @@ class Solution:
         
         return factors[k - 1]
 ```
+
+## Best Time to Buy and Sell Stock
+
 ```py
 '''
 Best Time to Buy and Sell Stock
@@ -3450,6 +3758,9 @@ class Solution:
         return max_profit
 
 ```
+
+## Sum of All Odd Length Subarrays
+
 ```py
 '''
  Sum of All Odd Length Subarrays
@@ -3503,6 +3814,9 @@ class Solution:
         return res
 
 ```
+
+## Remove Element
+
 ```py
 '''
 Remove Element
@@ -3523,6 +3837,9 @@ class Solution:
             nums.remove(val)
         return len(nums)
 ```
+
+## Path Sum
+
 ```py
 '''
 Path Sum
@@ -3547,6 +3864,9 @@ class Solution:
             return True
         return self.hasPathSum(root.left, targetSum - root.val) or self.hasPathSum(root.right, targetSum - root.val)
 ```
+
+## Add Binary
+
 ```py
 '''
 Add Binary
@@ -3561,6 +3881,9 @@ class Solution:
         
         return bin(res)[2:]
 ```
+
+## Lucky Numbers in a Matrix
+
 ```py
 '''
 Lucky Numbers in a Matrix
@@ -3597,6 +3920,9 @@ class Solution:
         else:
             return False
 ```
+
+## Palindrome Linked List
+
 ```py
 '''
 Palindrome Linked List
@@ -3635,6 +3961,9 @@ class Solution:
             head = lnext
         return prev
 ```
+
+## Defanging an IP Address
+
 ```py
 '''
 Defanging an IP Address
@@ -3649,6 +3978,9 @@ class Solution:
     def defangIPaddr(self, address: str) -> str:
         return address.replace(".", "[.]")
 ```
+
+## Find All Numbers Disappeared in an Array
+
 ```py
 '''
 Find All Numbers Disappeared in an Array
@@ -3668,6 +4000,9 @@ class Solution:
                 res.append(i)
         return res
 ```
+
+## Same Tree
+
 ```py
 '''
 Same Tree
@@ -3695,6 +4030,9 @@ class Solution:
             return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
         return False
 ```
+
+## Search in Rotated Sorted Array
+
 ```py
 '''
 There is an integer array nums sorted in ascending order (with distinct values).
@@ -3756,6 +4094,9 @@ class Solution:
         return -1
 
 ```
+
+## Search in a Binary Search Tree
+
 ```py
 '''
 Search in a Binary Search Tree
@@ -3787,6 +4128,9 @@ class Solution:
         else:
             return self.searchNode(root.right, val)
 ```
+
+## Odd Even Linked List
+
 ```py
 '''
 Odd Even Linked List
@@ -3823,6 +4167,9 @@ class Solution:
         odd.next = even
         return head
 ```
+
+## Word Search
+
 ```py
 '''
 Word Search
@@ -3876,6 +4223,9 @@ class Solution:
         
 
 ```
+
+## Merge Sorted Array
+
 ```py
 '''
  Merge Sorted Array
@@ -3920,6 +4270,9 @@ class Solution:
             top += 1
 
 ```
+
+## Isomorphic Strings
+
 ```py
 '''
 Isomorphic Strings
@@ -3975,6 +4328,9 @@ class Solution:
         return True
 
 ```
+
+## Running Sum of 1d Array
+
 ```py
 '''
 Running Sum of 1d Array
@@ -3993,6 +4349,9 @@ class Solution:
             
         return res
 ```
+
+## Merge Two Sorted Lists
+
 ```py
 '''
 Merge Two Sorted Lists
@@ -4058,6 +4417,9 @@ class Solution:
             
         return res
 ```
+
+## Remove All Occurrences of a Substring
+
 ```py
 '''
 Remove All Occurrences of a Substring
@@ -4103,6 +4465,9 @@ class Solution:
         return s
 
 ```
+
+## Sort an Array
+
 ```py
 '''
 Sort an Array
@@ -4144,6 +4509,9 @@ class Solution:
             self.quicksort(a, first, j - 1);
             self.quicksort(a, j + 1, last);
 ```
+
+## Remove Duplicates from Sorted List
+
 ```py
 '''
 Remove Duplicates from Sorted List
@@ -4167,6 +4535,9 @@ class Solution:
             cur = cur.next
         return head
 ```
+
+## Binary Tree Paths
+
 ```py
 '''
 Binary Tree Paths
@@ -4223,6 +4594,9 @@ class Solution:
             self.inorder(root.right, f"{path}->{root.val}", paths)
 
 ```
+
+## Reverse String
+
 ```py
 '''
 Reverse String
@@ -4238,6 +4612,9 @@ class Solution:
         """
         s.reverse()
 ```
+
+## Keys and Rooms
+
 ```py
 '''
 Keys and Rooms
@@ -4273,6 +4650,9 @@ class Solution:
             return False
         return True
 ```
+
+## Middle of the Linked List
+
 ```py
 '''
 Middle of the Linked List
@@ -4299,6 +4679,9 @@ class Solution:
             
         return slow
 ```
+
+## Shuffle an Array
+
 ```py
 '''
 Shuffle an Array
@@ -4344,6 +4727,9 @@ class Solution:
 # param_1 = obj.reset()
 # param_2 = obj.shuffle()
 ```
+
+## two sum
+
 ```py
 '''
 Two Sum
@@ -4366,6 +4752,9 @@ class Solution:
                 dic[target - nums[i]] = i
         return [-1, -1]
 ```
+
+## Add to Array-Form of Integer
+
 ```py
 '''
 Add to Array-Form of Integer
@@ -4384,6 +4773,9 @@ class Solution:
         res = str(int(''.join(res)) + k)
         return [int(char) for char in res]
 ```
+
+## Search a 2D Matrix
+
 ```py
 '''
 Search a 2D Matrix
@@ -4411,6 +4803,9 @@ class Solution:
                 return True
         return False
 ```
+
+## palindrome number
+
 ```py
 '''
 Palindrome Number
@@ -4429,6 +4824,9 @@ class Solution:
         else:
             return False
 ```
+
+## Maximum Depth of Binary Tree
+
 ```py
 '''
 Maximum Depth of Binary Tree
@@ -4451,6 +4849,9 @@ class Solution:
             return 0
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 ```
+
+## First Unique Character in a String
+
 ```py
 '''
 First Unique Character in a String
@@ -4475,6 +4876,9 @@ class Solution:
             
         return -1
 ```
+
+## Second Largest Digit in a String
+
 ```py
 '''
 Second Largest Digit in a String
@@ -4521,6 +4925,9 @@ class Solution:
         return max_num
 
 ```
+
+## Transpose Matrix
+
 ```py
 '''
 Transpose Matrix
@@ -4535,6 +4942,9 @@ class Solution:
     def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
         return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
 ```
+
+## Binary Search
+
 ```py
 '''
 Binary Search
@@ -4564,6 +4974,9 @@ class Solution:
         else:
             return -1
 ```
+
+## Delete Node in a Linked List
+
 ```py
 '''
 Delete Node in a Linked List
@@ -4589,6 +5002,9 @@ class Solution:
         node.val = node.next.val
         node.next = node.next.next
 ```
+
+## Kth Smallest Element in a BST
+
 ```py
 '''
 Kth Smallest Element in a BST
@@ -4634,6 +5050,9 @@ class Solution:
         
 
 ```
+
+## Longest Common Prefix
+
 ```py
 '''
 Longest Common Prefix
@@ -4663,3 +5082,4 @@ class Solution:
                 return False
         return True
 ```
+
