@@ -3227,6 +3227,47 @@ class Solution:
 
 ```
 
+## Kth Largest Element in an Array
+
+```py
+'''
+Kth Largest Element in an Array
+Medium
+
+Given an integer array nums and an integer k, return the kth largest element in the array.
+
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+ 
+
+Example 1:
+
+Input: nums = [3,2,1,5,6,4], k = 2
+Output: 5
+
+Example 2:
+
+Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
+Output: 4
+'''
+
+
+import queue
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        q = queue.PriorityQueue()
+        
+        for num in nums:
+            q.put(num)
+            
+        for _ in range(len(nums) - k):
+            temp = q.get()
+        
+        return q.get()
+
+```
+
 ## Reverse Linked List
 
 ```py
@@ -4679,6 +4720,108 @@ class Solution:
         s.reverse()
 ```
 
+## Third Maximum Number
+
+```py
+'''
+Third Maximum Number
+Easy
+
+Given integer array nums, return the third maximum number in this array. If the third maximum does not exist, return the maximum number.
+
+ 
+
+Example 1:
+
+Input: nums = [3,2,1]
+Output: 1
+Explanation: The third maximum is 1.
+
+Example 2:
+
+Input: nums = [1,2]
+Output: 2
+Explanation: The third maximum does not exist, so the maximum (2) is returned instead.
+
+Example 3:
+
+Input: nums = [2,2,3,1]
+Output: 1
+Explanation: Note that the third maximum here means the third maximum distinct number.
+Both numbers with value 2 are both considered as second maximum.
+'''
+
+
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        s = set()
+        for num in nums:
+            s.add(num)
+            
+        if len(s) < 3:
+            return max(s)
+        
+        for _ in range(2):
+            s.remove(max(s))
+        return max(s)
+
+```
+
+## Top K Frequent Elements
+
+```py
+'''
+Top K Frequent Elements
+Medium
+
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+'''
+
+
+from queue import PriorityQueue
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        def sort_func(x):
+            return dic[x]
+        dic = {}
+        
+        for num in nums:
+            if num in dic:
+                dic[num] += 1
+            else:
+                dic[num] = 1
+                
+        nums.sort(key=sort_func, reverse=True)
+        
+        s = set()
+        res = []
+        
+        for num in nums:
+            if len(s) == k:
+                break
+            if num in s:
+                continue
+            else:
+                res.append(num)
+                s.add(num)
+        
+        return res
+
+```
+
 ## Keys and Rooms
 
 ```py
@@ -4792,6 +4935,61 @@ class Solution:
 # obj = Solution(nums)
 # param_1 = obj.reset()
 # param_2 = obj.shuffle()
+```
+
+## Sort Characters By Frequency
+
+```py
+'''
+Sort Characters By Frequency
+Medium
+
+Given a string s, sort it in decreasing order based on the frequency of characters, and return the sorted string.
+
+ 
+
+Example 1:
+
+Input: s = "tree"
+Output: "eert"
+Explanation: 'e' appears twice while 'r' and 't' both appear once.
+So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
+
+Example 2:
+
+Input: s = "cccaaa"
+Output: "aaaccc"
+Explanation: Both 'c' and 'a' appear three times, so "aaaccc" is also a valid answer.
+Note that "cacaca" is incorrect, as the same characters must be together.
+
+Example 3:
+
+Input: s = "Aabb"
+Output: "bbAa"
+Explanation: "bbaA" is also a valid answer, but "Aabb" is incorrect.
+Note that 'A' and 'a' are treated as two different characters.
+'''
+
+
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        dic = {}
+        
+        s = [char for char in s]
+        
+        for char in s:
+            if char in dic:
+                dic[char] += 1
+            else:
+                dic[char] = 1
+        
+        res = ""
+        for key in sorted(dic, key=lambda x: dic[x], reverse=True):
+            temp = key * dic[key]
+            res += temp
+            
+        return res
+
 ```
 
 ## two sum
