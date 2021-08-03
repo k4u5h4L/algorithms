@@ -14,3 +14,16 @@ python check-no.py --folder leetcode
 ```
 
 This will output the number of problems in the `leetcode/` folder.
+
+
+### Make a `.md` file based on all the programs in a folder
+
+```bash
+python create_md.py --folder <folder_name>
+
+# eg-
+
+python create_md.py --folder leetcode
+```
+
+This will make a new file called `<folder_name_caps>.md` with all the programs in the folder which makes it easier to read.
