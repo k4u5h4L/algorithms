@@ -1424,6 +1424,48 @@ class Solution:
         return str(int(num1) + int(num2))
 ```
 
+## Minimum Cost to Connect Sticks
+
+```py
+'''
+Minimim Cost to Connect Sticks
+Medium
+
+You have some sticks with positive integer lengths
+
+You can connect any two sticks of lengths X andc Y by paying a cost X + Y.
+You can perform this action until there is one stick remaining.
+
+Return the minimum cost of connecting all the given sticks into one stick in this way.
+
+Example 1:
+Input: sticks = [2,4,3]
+Output: 14
+
+Example 2:
+Input: sticks = [1,8,3,5]
+Output: 30
+'''
+
+from queue import PriorityQueue
+
+class Solution:
+    def connectSticks(self, sticks: List[int]) -> int:
+        cost = 0
+        q = PriorityQueue()
+        
+        for stick in sticks:
+            q.put(stick)
+        
+        while q.qsize() > 1:
+            cur_sum = q.get() + q.get()
+            cost += cur_sum
+            q.put(cur_sum)
+            
+        return cost
+
+```
+
 ## Fibonacci Number
 
 ```py
@@ -1450,6 +1492,63 @@ class Solution:
         else:
             memo[n] = self.fib(n-1, memo) + self.fib(n-2, memo)
             return memo[n]
+```
+
+## Pow(x,n)
+
+```py
+'''
+Pow(x, n)
+Medium
+
+Implement pow(x, n), which calculates x raised to the power n (i.e., x^n).
+
+ 
+
+Example 1:
+
+Input: x = 2.00000, n = 10
+Output: 1024.00000
+
+Example 2:
+
+Input: x = 2.10000, n = 3
+Output: 9.26100
+
+Example 3:
+
+Input: x = 2.00000, n = -2
+Output: 0.25000
+Explanation: 2-2 = 1/2^2 = 1/4 = 0.25
+'''
+
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if x == float(1) or n == 0:
+            return 1
+        
+        if x == float(-1):
+            return 1 if n % 2 == 0 else -1
+        
+        neg = False
+        
+        if n < 0:
+            n = abs(n)
+            neg = True
+            
+        if neg == True:
+            x = 1 / x
+            
+        res = x
+        for _ in range(n-1):
+            if abs(res) < 0.00001:
+                return 0.00000
+            elif abs(res) > 100000:
+                return 100000
+            res *= x
+            
+        return res
+
 ```
 
 ## First Missing Positive
@@ -1678,6 +1777,60 @@ class Solution:
         root.left = right
         
         return root
+```
+
+## Last Stone Weight
+
+```py
+'''
+Last Stone Weight
+Easy
+
+We have a collection of stones, each stone has a positive integer weight.
+
+Each turn, we choose the two heaviest stones and smash them together.  Suppose the stones have weights x and y with x <= y.  The result of this smash is:
+
+    If x == y, both stones are totally destroyed;
+    If x != y, the stone of weight x is totally destroyed, and the stone of weight y has new weight y-x.
+
+At the end, there is at most 1 stone left.  Return the weight of this stone (or 0 if there are no stones left.)
+
+ 
+
+Example 1:
+
+Input: [2,7,4,1,8,1]
+Output: 1
+Explanation: 
+We combine 7 and 8 to get 1 so the array converts to [2,4,1,1,1] then,
+we combine 2 and 4 to get 2 so the array converts to [2,1,1,1] then,
+we combine 2 and 1 to get 1 so the array converts to [1,1,1] then,
+we combine 1 and 1 to get 0 so the array converts to [1] then that's the value of last stone
+'''
+
+
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        if len(stones) == 1:
+            return stones[0]
+        
+        stones.sort(reverse=True)
+        
+        while len(stones) >= 2:
+            stone1 = stones.pop(0)
+            stone2 = stones.pop(0)
+            
+            if stone1 == stone2:
+                continue
+            else:
+                stones.append(abs(stone1 - stone2))
+                stones.sort(reverse=True)
+                
+        if len(stones) == 1:
+            return stones[0]
+        else:
+            return 0
+
 ```
 
 ## Power of Four
@@ -2340,6 +2493,63 @@ class Solution:
         res.append(root.val)
 ```
 
+## Find Common Characters
+
+```py
+'''
+Find Common Characters
+Easy
+
+Given a string array words, return an array of all characters that show up in all strings within the words (including duplicates). You may return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: words = ["bella","label","roller"]
+Output: ["e","l","l"]
+
+Example 2:
+
+Input: words = ["cool","lock","cook"]
+Output: ["c","o"]
+'''
+
+
+class Solution:
+    def commonChars(self, words: List[str]) -> List[str]:
+        if len(words) == 1:
+            return [char for char in words[0]]
+        
+        dic = {}
+        
+        for char in words[0]:
+            if char in dic:
+                dic[char] += 1
+            else:
+                dic[char] = 1
+                
+        words = words[1:]
+        
+        for word in words:
+            temp_dic = dic.copy()
+            dic = {}
+            for char in word:
+                if char in temp_dic and temp_dic[char] > 0:
+                    temp_dic[char] -= 1
+                    if char in dic:
+                        dic[char] += 1
+                    else:
+                        dic[char] = 1
+                   
+        res = []
+        for key, value in dic.items():
+            res.extend([key] * value)
+            
+        return res
+
+```
+
 ## Valid Sudoku
 
 ```py
@@ -2403,6 +2613,48 @@ class Solution:
                 st.add(arr[row][i])
 
         return True
+```
+
+## Intersection of Two Arrays
+
+```py
+'''
+Intersection of Two Arrays
+Easy
+
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.
+
+ 
+
+Example 1:
+
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
+
+Example 2:
+
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [9,4]
+Explanation: [4,9] is also accepted.
+'''
+
+
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        s = set()
+        
+        for num in nums1:
+            s.add(num)
+            
+        res = []
+        
+        for num in nums2:
+            if num in s:
+                res.append(num)
+                s.remove(num)
+                
+        return res
+
 ```
 
 ## Remove Linked List Elements
@@ -2946,6 +3198,65 @@ class Solution:
         return nums.index(max(nums))
 ```
 
+## Coin Change
+
+```py
+'''
+Coin Change
+Medium
+
+You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+You may assume that you have an infinite number of each kind of coin.
+
+ 
+
+Example 1:
+
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
+
+Example 2:
+
+Input: coins = [2], amount = 3
+Output: -1
+
+Example 3:
+
+Input: coins = [1], amount = 0
+Output: 0
+
+Example 4:
+
+Input: coins = [1], amount = 1
+Output: 1
+
+Example 5:
+
+Input: coins = [1], amount = 2
+Output: 2
+'''
+
+
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if not amount:
+            return 0
+        
+        data = [float('inf') for _ in range(amount + 1)]
+        data[0] = 0
+        
+        for coin in coins:
+            for i in range(amount + 1):
+                if i >= coin:
+                    data[i] = min(data[i], data[i - coin] + 1)
+                    
+        return -1 if data[-1] == float('inf') else data[-1]
+```
+
 ## Binary Tree Inorder Traversal
 
 ```py
@@ -3364,6 +3675,70 @@ var shuffle = function (nums, n) {
     }
     return res;
 };
+
+```
+
+## Longest Word in Dictionary
+
+```py
+'''
+Longest Word in Dictionary
+Medium
+
+Given an array of strings words representing an English Dictionary, return the longest word in words that can be built one character at a time by other words in words.
+
+If there is more than one possible answer, return the longest word with the smallest lexicographical order. If there is no answer, return the empty string.
+
+ 
+
+Example 1:
+
+Input: words = ["w","wo","wor","worl","world"]
+Output: "world"
+Explanation: The word "world" can be built one character at a time by "w", "wo", "wor", and "worl".
+
+Example 2:
+
+Input: words = ["a","banana","app","appl","ap","apply","apple"]
+Output: "apple"
+Explanation: Both "apply" and "apple" can be built from other words in the dictionary. However, "apple" is lexicographically smaller than "apply".
+'''
+
+
+class Solution:
+    def longestWord(self, words: List[str]) -> str:
+        hs = set(words)
+        
+        words.sort(key=lambda x: len(x), reverse=True)
+        
+        res = []
+        for word in words:
+            i = 1
+            hs.remove(word)
+            while i < len(word):
+                if word[:i] not in hs:
+                    break
+                i += 1
+            
+            if i == len(word):
+                res.append(word)
+            
+            hs.add(word)
+        
+        max_len = 0
+        
+        for word in res:
+            max_len = max(max_len, len(word))
+        
+        final_res = []
+        
+        for word in res:
+            if len(word) == max_len:
+                final_res.append(word)
+        
+        final_res.sort()
+        
+        return final_res[0] if len(final_res) != 0 else ""
 
 ```
 
@@ -3790,6 +4165,67 @@ class Solution:
         return max_len;
 ```
 
+## Binary Tree Right Side View
+
+```py
+'''
+Binary Tree Right Side View
+Medium
+
+Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+ 
+
+Example 1:
+
+Input: root = [1,2,3,null,5,null,4]
+Output: [1,3,4]
+
+Example 2:
+
+Input: root = [1,null,3]
+Output: [1,3]
+
+Example 3:
+
+Input: root = []
+Output: []
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        if root == None:
+            return []
+        
+        q = []
+        q.append(root)
+        
+        res = []
+        
+        # basic bfs traversal
+        while len(q) > 0:
+            size = len(q)
+            for i in range(size):
+                cur = q.pop(0)
+                
+                if i == size - 1:
+                    res.append(cur.val)
+                if cur.left != None:
+                    q.append(cur.left)
+                if cur.right != None:
+                    q.append(cur.right)
+                    
+        return res
+
+```
+
 ## Length of Last Word
 
 ```py
@@ -4086,6 +4522,93 @@ class Solution:
         return address.replace(".", "[.]")
 ```
 
+## LRU Cache
+
+```py
+'''
+LRU Cache
+Medium
+
+Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+
+Implement the LRUCache class:
+
+    LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
+    int get(int key) Return the value of the key if the key exists, otherwise return -1.
+    void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+
+The functions get and put must each run in O(1) average time complexity.
+
+ 
+
+Example 1:
+
+Input
+["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+Output
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+
+Explanation
+LRUCache lRUCache = new LRUCache(2);
+lRUCache.put(1, 1); // cache is {1=1}
+lRUCache.put(2, 2); // cache is {1=1, 2=2}
+lRUCache.get(1);    // return 1
+lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+lRUCache.get(2);    // returns -1 (not found)
+lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+lRUCache.get(1);    // return -1 (not found)
+lRUCache.get(3);    // return 3
+lRUCache.get(4);    // return 4
+'''
+
+
+
+class LRUCache:
+    # just have a count variable to denote when the cache was accessed. It acts like a time stamp. lower the count lower the priority
+
+    def __init__(self, capacity: int):
+        self.cache = {}
+        self.count = 0
+        self.cap = capacity
+
+    def get(self, key: int) -> int:
+        if key in self.cache:
+            self.count += 1
+            self.cache[key][0] = self.count
+            return self.cache[key][1]
+        else:
+            return -1
+            
+
+    def put(self, key: int, value: int) -> None:
+        if len(self.cache) == self.cap:
+            if key not in self.cache:
+                last_used_val = self.count
+                last_used_key = -1
+                for k, v in self.cache.items():
+                    if last_used_val >= v[0]:
+                        last_used_val = v[0]
+                        last_used_key = k
+
+                self.cache.pop(last_used_key)
+                self.count += 1
+                self.cache[key] = [self.count, value]
+            else:
+                self.count += 1
+                self.cache[key] = [self.count, value]
+                
+        else:
+            self.count += 1
+            self.cache[key] = [self.count, value]         
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+
+```
+
 ## Find All Numbers Disappeared in an Array
 
 ```py
@@ -4202,6 +4725,70 @@ class Solution:
 
 ```
 
+## Balanced Binary Tree
+
+```py
+'''
+Balanced Binary Tree
+Easy
+
+Given a binary tree, determine if it is height-balanced.
+
+For this problem, a height-balanced binary tree is defined as:
+
+    a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+
+ 
+
+Example 1:
+
+Input: root = [3,9,20,null,null,15,7]
+Output: true
+
+Example 2:
+
+Input: root = [1,2,2,3,3,null,null,4,4]
+Output: false
+
+Example 3:
+
+Input: root = []
+Output: true
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        def helper(root):
+            if not root:
+                return True, 0
+              
+            left = helper(root.left)
+            
+            if not left[0]:
+                return False, 0
+              
+            right = helper(root.right)
+            
+            if not right[0]:
+                return False, 0
+              
+            if abs(left[1]-right[1]) > 1:
+                return False, 0
+              
+            return True, max(left[1], right[1])+1
+			
+        return helper(root)[0]
+        
+
+```
+
 ## Search in a Binary Search Tree
 
 ```py
@@ -4234,6 +4821,62 @@ class Solution:
             return self.searchNode(root.left, val)
         else:
             return self.searchNode(root.right, val)
+```
+
+## Intersection of Two Arrays II
+
+```py
+'''
+Intersection of Two Arrays II
+Easy
+
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must appear as many times as it shows in both arrays and you may return the result in any order.
+
+ 
+
+Example 1:
+
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2,2]
+
+Example 2:
+
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [4,9]
+Explanation: [9,4] is also accepted.
+'''
+
+
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        dic1 = {}
+        dic2 = {}
+        
+        for num in nums1:
+            if num in dic1:
+                dic1[num] += 1
+            else:
+                dic1[num] = 1
+                
+        for num in nums2:
+            if num in dic2:
+                dic2[num] += 1
+            else:
+                dic2[num] = 1
+                
+        dic = {}
+        
+        for x in dic1:
+            if x in dic2:
+                dic[x] = min(dic1[x], dic2[x])
+        
+        res = []
+        
+        for key in dic.keys():
+            res.extend([key] * dic[key])
+            
+        return res
+
 ```
 
 ## Odd Even Linked List
@@ -4433,6 +5076,131 @@ class Solution:
                 memo[a] = b
         
         return True
+
+```
+
+## Flatten Binary Tree to Linked List
+
+```py
+'''
+Flatten Binary Tree to Linked List
+Medium
+
+Given the root of a binary tree, flatten the tree into a "linked list":
+
+    The "linked list" should use the same TreeNode class where the right child pointer points to the next node in the list and the left child pointer is always null.
+    The "linked list" should be in the same order as a pre-order traversal of the binary tree.
+
+ 
+
+Example 1:
+
+Input: root = [1,2,5,3,4,null,6]
+Output: [1,null,2,null,3,null,4,null,5,null,6]
+
+Example 2:
+
+Input: root = []
+Output: []
+
+Example 3:
+
+Input: root = [0]
+Output: [0]
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        if root == None:
+            return
+        
+        arr = []
+        
+        self.preorder(root, arr)
+                
+        for i in range(len(arr) - 1):
+            root.val = arr[i]
+            root.left = None
+            
+            if root.right == None:
+                root.right = TreeNode()
+                
+            root = root.right
+            
+        if len(arr) >= 1:
+            root.val = arr[-1]
+        
+        return
+    
+    def preorder(self, root, arr):
+        if root == None:
+            return
+        arr.append(root.val)
+        
+        self.preorder(root.left, arr)
+        self.preorder(root.right, arr)
+
+```
+
+## Majority Element II
+
+```py
+'''
+Majority Element II
+Medium
+
+Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
+
+Follow-up: Could you solve the problem in linear time and in O(1) space?
+
+ 
+
+Example 1:
+
+Input: nums = [3,2,3]
+Output: [3]
+
+Example 2:
+
+Input: nums = [1]
+Output: [1]
+
+Example 3:
+
+Input: nums = [1,2]
+Output: [1,2]
+'''
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> List[int]:
+        dic = {}
+        
+        times = len(nums) // 3
+        
+        for num in nums:
+            if num in dic:
+                dic[num] += 1
+            else:
+                dic[num] = 1
+                
+        res = []
+        
+        for num in nums:
+            if num in dic and dic[num] > times:
+                res.append(num)
+                dic.pop(num)
+                
+        return res
 
 ```
 
@@ -5345,5 +6113,83 @@ class Solution:
             if strs[i-1][:index+1] != strs[i][:index+1]:
                 return False
         return True
+```
+
+## Add Two Numbers
+
+```py
+'''
+Add Two Numbers
+Medium
+
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+ 
+
+Example 1:
+
+Input: l1 = [2,4,3], l2 = [5,6,4]
+Output: [7,0,8]
+Explanation: 342 + 465 = 807.
+
+Example 2:
+
+Input: l1 = [0], l2 = [0]
+Output: [0]
+
+Example 3:
+
+Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+Output: [8,9,9,9,0,0,0,1]
+'''
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        if l1 == None:
+            return l2
+        if l2 == None:
+            return l1
+        
+        digit1 = ""
+        cur1 = l1
+        
+        while cur1 != None:
+            digit1 += str(cur1.val)
+            cur1 = cur1.next
+            
+        digit2 = ""
+        cur2 = l2
+        
+        while cur2 != None:
+            digit2 += str(cur2.val)
+            cur2 = cur2.next
+            
+        digit1 = digit1[::-1]
+        digit2 = digit2[::-1]
+            
+        digit1 = int(digit1)
+        digit2 = int(digit2)
+        
+        res = str(digit1 + digit2)
+        res = res[::-1]
+        
+        head = ListNode(int(res[0]))
+        res = res[1:]
+        cur = head
+        
+        for char in res:
+            cur.next = ListNode(int(char))
+            cur = cur.next
+            
+        return head
+
 ```
 
