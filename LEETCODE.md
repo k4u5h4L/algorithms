@@ -666,6 +666,62 @@ class Solution:
 
 ```
 
+## Matrix Diagonal Sum
+
+```py
+'''
+Matrix Diagonal Sum
+Easy
+
+Given a square matrix mat, return the sum of the matrix diagonals.
+
+Only include the sum of all the elements on the primary diagonal and all the elements on the secondary diagonal that are not part of the primary diagonal.
+
+ 
+
+Example 1:
+
+Input: mat = [[1,2,3],
+              [4,5,6],
+              [7,8,9]]
+Output: 25
+Explanation: Diagonals sum: 1 + 5 + 9 + 3 + 7 = 25
+Notice that element mat[1][1] = 5 is counted only once.
+
+Example 2:
+
+Input: mat = [[1,1,1,1],
+              [1,1,1,1],
+              [1,1,1,1],
+              [1,1,1,1]]
+Output: 8
+
+Example 3:
+
+Input: mat = [[5]]
+Output: 5
+'''
+
+class Solution:
+    def diagonalSum(self, mat: List[List[int]]) -> int:
+        m = len(mat)
+        
+        if m == 1:
+            return mat[0][0]
+
+        res = 0
+        
+        for i in range(m):
+           res += mat[i][i]
+           res += mat[i][-1 - i]
+
+        if m % 2 == 1:
+            res -= mat[m // 2][m // 2]
+
+        return res
+
+```
+
 ## Happy Number
 
 ```py
@@ -1481,6 +1537,32 @@ F(n) = F(n - 1) + F(n - 2), for n > 1.
 Given n, calculate F(n).
 '''
 
+# bottom up approach (DP)
+class Solution:
+    def fib(self, n: int) -> int:
+        if n == 0:
+            return 0
+        elif n < 2:
+            return 1
+            
+        dp = [0] * (n + 1)
+    
+        dp[0] = 0
+        dp[1] = 1
+        dp[2] = 1
+
+        if n < 3:
+            return dp[n]
+
+        for i in range(3, n+1):
+            dp[i] = dp[i-1] + dp[i-2]
+
+        return dp[n]
+    
+    
+ 
+
+# recursive and memoized solution (DP)
 class Solution:
     def fib(self, n: int, memo={}) -> int:
         if n == 0:
@@ -1492,6 +1574,7 @@ class Solution:
         else:
             memo[n] = self.fib(n-1, memo) + self.fib(n-2, memo)
             return memo[n]
+
 ```
 
 ## Pow(x,n)
@@ -1574,6 +1657,58 @@ class Solution:
         while min_pos in memo:
             min_pos += 1
         return min_pos
+```
+
+## Kids With the Greatest Number of Candies
+
+```py
+'''
+Kids With the Greatest Number of Candies
+Easy
+
+There are n kids with candies. You are given an integer array candies, where each candies[i] represents the number of candies the ith kid has, and an integer extraCandies, denoting the number of extra candies that you have.
+
+Return a boolean array result of length n, where result[i] is true if, after giving the ith kid all the extraCandies, they will have the greatest number of candies among all the kids, or false otherwise.
+
+Note that multiple kids can have the greatest number of candies.
+
+ 
+
+Example 1:
+
+Input: candies = [2,3,5,1,3], extraCandies = 3
+Output: [true,true,true,false,true] 
+Explanation: If you give all extraCandies to:
+- Kid 1, they will have 2 + 3 = 5 candies, which is the greatest among the kids.
+- Kid 2, they will have 3 + 3 = 6 candies, which is the greatest among the kids.
+- Kid 3, they will have 5 + 3 = 8 candies, which is the greatest among the kids.
+- Kid 4, they will have 1 + 3 = 4 candies, which is not the greatest among the kids.
+- Kid 5, they will have 3 + 3 = 6 candies, which is the greatest among the kids.
+
+Example 2:
+
+Input: candies = [4,2,1,1,2], extraCandies = 1
+Output: [true,false,false,false,false] 
+Explanation: There is only 1 extra candy.
+Kid 1 will always have the greatest number of candies, even if a different kid is given the extra candy.
+
+Example 3:
+
+Input: candies = [12,1,12], extraCandies = 10
+Output: [true,false,true]
+'''
+
+
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        res = [False] * len(candies)
+        
+        for i in range(len(candies)):
+            if (candies[i] + extraCandies) >= max(candies):
+                res[i] = True
+                
+        return res
+
 ```
 
 ## Remove Duplicates from Sorted Array II
@@ -3243,18 +3378,17 @@ Output: 2
 
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        if not amount:
-            return 0
+        dp = [amount + 1] * (amount + 1)
         
-        data = [float('inf') for _ in range(amount + 1)]
-        data[0] = 0
+        dp[0] = 0
         
-        for coin in coins:
-            for i in range(amount + 1):
-                if i >= coin:
-                    data[i] = min(data[i], data[i - coin] + 1)
+        for a in range(1, amount + 1):
+            for coin in coins:
+                if a - coin >= 0:
+                    dp[a] = min(dp[a], 1 + dp[a - coin])
                     
-        return -1 if data[-1] == float('inf') else data[-1]
+        return dp[amount] if dp[amount] != (amount + 1) else -1
+
 ```
 
 ## Binary Tree Inorder Traversal
@@ -4016,6 +4150,63 @@ class Solution:
         return 0
 ```
 
+## Integer Replacement
+
+```py
+'''
+Integer Replacement
+Medium
+
+Given a positive integer n, you can apply one of the following operations:
+
+    If n is even, replace n with n / 2.
+    If n is odd, replace n with either n + 1 or n - 1.
+
+Return the minimum number of operations needed for n to become 1.
+
+ 
+
+Example 1:
+
+Input: n = 8
+Output: 3
+Explanation: 8 -> 4 -> 2 -> 1
+
+Example 2:
+
+Input: n = 7
+Output: 4
+Explanation: 7 -> 8 -> 4 -> 2 -> 1
+or 7 -> 6 -> 3 -> 2 -> 1
+
+Example 3:
+
+Input: n = 4
+Output: 2
+'''
+
+
+class Solution:
+    def integerReplacement(self, n: int) -> int:
+        return self.num_steps(n) - 1
+    
+    def num_steps(self, n, memo={}):
+        if n in memo:
+            return memo[n]
+        
+        if n == 1:
+            return 1
+        
+        elif n % 2 == 0:
+            memo[n] = 1 + self.num_steps(n // 2, memo)
+            
+        else:
+            memo[n] = 1 + min(self.num_steps(n + 1, memo), self.num_steps(n - 1, memo))
+        
+        return memo[n]
+
+```
+
 ## Two Sum
 
 ```py
@@ -4275,6 +4466,58 @@ class Solution:
             return -1
         
         return factors[k - 1]
+```
+
+## Minimum Absolute Difference in BST
+
+```py
+'''
+Minimum Absolute Difference in BST
+Easy
+
+Given the root of a Binary Search Tree (BST), return the minimum absolute difference between the values of any two different nodes in the tree.
+
+ 
+
+Example 1:
+
+Input: root = [4,2,6,1,3]
+Output: 1
+
+Example 2:
+
+Input: root = [1,0,48,null,null,12,49]
+Output: 1
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def getMinimumDifference(self, root: TreeNode) -> int:
+        vals = []
+        
+        self.inorder(root, vals)
+        
+        res = max(vals)
+                
+        for i in range(len(vals)-1):
+            res = min(res, abs(vals[i] - vals[i+1]))
+                
+        return res
+    
+    def inorder(self, root, vals):
+        if root == None:
+            return
+        
+        self.inorder(root.left, vals)
+        vals.append(root.val)
+        self.inorder(root.right, vals)
+
 ```
 
 ## Best Time to Buy and Sell Stock
@@ -5488,6 +5731,185 @@ class Solution:
         s.reverse()
 ```
 
+## Longest Palindrome
+
+```py
+'''
+Longest Palindrome
+Easy
+
+Given a string s which consists of lowercase or uppercase letters, return the length of the longest palindrome that can be built with those letters.
+
+Letters are case sensitive, for example, "Aa" is not considered a palindrome here.
+
+ 
+
+Example 1:
+
+Input: s = "abccccdd"
+Output: 7
+Explanation:
+One longest palindrome that can be built is "dccaccd", whose length is 7.
+
+Example 2:
+
+Input: s = "a"
+Output: 1
+
+Example 3:
+
+Input: s = "bb"
+Output: 2
+'''
+
+
+class Solution:
+    def longestPalindrome(self, s: str) -> int:        
+        if len(s) == 1:
+            return 1
+        
+        dic = {}
+    
+        for char in s:
+            if char in dic:
+                dic[char] += 1
+            else:
+                dic[char] = 1
+                
+        max_len = 0
+        
+        for val in dic.values():
+            max_len += (val // 2) * 2
+            
+            if max_len % 2 == 0 and val % 2 == 1:
+                max_len += 1
+                
+        return max_len
+
+```
+
+## Maximum Score After Splitting a String
+
+```py
+'''
+Maximum Score After Splitting a String
+Easy
+
+Given a string s of zeros and ones, return the maximum score after splitting the string into two non-empty substrings (i.e. left substring and right substring).
+
+The score after splitting a string is the number of zeros in the left substring plus the number of ones in the right substring.
+
+ 
+
+Example 1:
+
+Input: s = "011101"
+Output: 5 
+Explanation: 
+All possible ways of splitting s into two non-empty substrings are:
+left = "0" and right = "11101", score = 1 + 4 = 5 
+left = "01" and right = "1101", score = 1 + 3 = 4 
+left = "011" and right = "101", score = 1 + 2 = 3 
+left = "0111" and right = "01", score = 1 + 1 = 2 
+left = "01110" and right = "1", score = 2 + 1 = 3
+
+Example 2:
+
+Input: s = "00111"
+Output: 5
+Explanation: When left = "00" and right = "111", we get the maximum score = 2 + 3 = 5
+
+Example 3:
+
+Input: s = "1111"
+Output: 3
+'''
+
+
+class Solution:
+    def maxScore(self, s: str) -> int:
+        i = 1
+        
+        max_val = -1
+        
+        left = s[:i]
+        right = s[i:]
+            
+        c1 = left.count('0')
+        c2 =  right.count('1')
+                    
+        max_val = max(max_val, c1 + c2)
+            
+        i += 1
+        
+        while i < len(s):
+            left = s[:i]
+            right = s[i:]
+            
+            c1 = left.count('0')
+            c2 =  right.count('1')
+                        
+            max_val = max(max_val, c1 + c2)
+            
+            i += 1
+            
+        return max_val
+
+```
+
+## Minimum Path Sum
+
+```py
+'''
+Minimum Path Sum
+Medium
+
+Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time.
+
+ 
+
+Example 1:
+
+Input: grid = [
+                [1,3,1],
+                [1,5,1],
+                [4,2,1]
+              ]
+Output: 7
+Explanation: Because the path 1 → 3 → 1 → 1 → 1 minimizes the sum.
+
+Example 2:
+
+Input: grid = [[1,2,3],[4,5,6]]
+Output: 12
+'''
+
+
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        dp = []
+        
+        for i in range(len(grid)):
+            dp.append([0] * len(grid[i]))
+                    
+        for i in range(len(dp)):
+            for j in range(len(dp[i])):
+                dp[i][j] += grid[i][j]
+                
+                if i > 0 and j > 0:
+                    dp[i][j] += min(dp[i-1][j], dp[i][j-1])
+                    
+                elif i > 0:
+                    dp[i][j] += dp[i-1][j]
+                elif j > 0:
+                    dp[i][j] += dp[i][j-1]
+         
+        return dp[-1][-1]
+
+```
+
 ## Third Maximum Number
 
 ```py
@@ -5955,6 +6377,56 @@ class Solution:
                 pass
             
         return max_num
+
+```
+
+## Sum of Left Leaves
+
+```py
+'''
+Sum of Left Leaves
+Easy
+
+Given the root of a binary tree, return the sum of all left leaves.
+
+ 
+
+Example 1:
+
+Input: root = [3,9,20,null,null,15,7]
+Output: 24
+Explanation: There are two left leaves in the binary tree, with values 9 and 15 respectively.
+
+Example 2:
+
+Input: root = [1]
+Output: 0
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumOfLeftLeaves(self, root: TreeNode) -> int:
+        res = [0]
+        
+        self.inorder(root, res)
+        
+        return res[0]
+    
+    def inorder(self, root, res):
+        if root == None:
+            return
+        
+        if root.left and not root.left.left and not root.left.right:
+            res[0] += root.left.val
+            
+        self.inorder(root.left, res)
+        self.inorder(root.right, res)
 
 ```
 
