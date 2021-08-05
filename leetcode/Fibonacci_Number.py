@@ -10,6 +10,32 @@ F(n) = F(n - 1) + F(n - 2), for n > 1.
 Given n, calculate F(n).
 '''
 
+# bottom up approach (DP)
+class Solution:
+    def fib(self, n: int) -> int:
+        if n == 0:
+            return 0
+        elif n < 2:
+            return 1
+            
+        dp = [0] * (n + 1)
+    
+        dp[0] = 0
+        dp[1] = 1
+        dp[2] = 1
+
+        if n < 3:
+            return dp[n]
+
+        for i in range(3, n+1):
+            dp[i] = dp[i-1] + dp[i-2]
+
+        return dp[n]
+    
+    
+ 
+
+# recursive and memoized solution (DP)
 class Solution:
     def fib(self, n: int, memo={}) -> int:
         if n == 0:
