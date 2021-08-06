@@ -2662,6 +2662,44 @@ class Solution:
 
 ```
 
+## Find Center of Star Graph
+
+```py
+'''
+Find Center of Star Graph
+Easy
+
+There is an undirected star graph consisting of n nodes labeled from 1 to n. A star graph is a graph where there is one center node and exactly n - 1 edges that connect the center node with every other node.
+
+You are given a 2D integer array edges where each edges[i] = [ui, vi] indicates that there is an edge between the nodes ui and vi. Return the center of the given star graph.
+
+ 
+
+Example 1:
+
+Input: edges = [[1,2],[2,3],[4,2]]
+Output: 2
+Explanation: As shown in the figure above, node 2 is connected to every other node, so 2 is the center.
+
+Example 2:
+
+Input: edges = [[1,2],[5,1],[1,3],[1,4]]
+Output: 1
+'''
+
+
+class Solution:
+    def findCenter(self, edges: List[List[int]]) -> int:
+        e = edges[0]
+        edges = edges[1:]
+        
+        if e[0] in edges[0]:
+            return e[0]
+        else:
+            return e[1]
+
+```
+
 ## Search Insert Position
 
 ```py
@@ -3551,6 +3589,53 @@ class Solution:
         #         left = mid + 1
         # return -1
         return nums.index(max(nums))
+```
+
+## Number of Different Integers in a String
+
+```py
+'''
+Number of Different Integers in a String
+Easy
+
+You are given a string word that consists of digits and lowercase English letters.
+
+You will replace every non-digit character with a space. For example, "a123bc34d8ef34" will become " 123  34 8  34". Notice that you are left with some integers that are separated by at least one space: "123", "34", "8", and "34".
+
+Return the number of different integers after performing the replacement operations on word.
+
+Two integers are considered different if their decimal representations without any leading zeros are different.
+
+ 
+
+Example 1:
+
+Input: word = "a123bc34d8ef34"
+Output: 3
+Explanation: The three different integers are "123", "34", and "8". Notice that "34" is only counted once.
+
+Example 2:
+
+Input: word = "leet1234code234"
+Output: 2
+
+Example 3:
+
+Input: word = "a1b01c001"
+Output: 1
+Explanation: The three integers "1", "01", and "001" all represent the same integer because
+the leading zeros are ignored when comparing their decimal values.
+'''
+
+
+class Solution:
+    def numDifferentIntegers(self, word: str) -> int:
+        res = re.sub(r"[a-z]", "-", word)
+        
+        res = [int(char) for char in res.split("-") if char != "" and char.isnumeric()]
+        
+        return len(set(res))
+
 ```
 
 ## Coin Change
@@ -6629,6 +6714,52 @@ class Solution:
             return True
         else:
             return False
+```
+
+## Valid Anagram
+
+```py
+'''
+Valid Anagram
+Easy
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+ 
+
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Example 2:
+
+Input: s = "rat", t = "car"
+Output: false
+'''
+
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        
+        dic = {}
+        
+        for char in s:
+            if char in dic:
+                dic[char] += 1
+            else:
+                dic[char] = 1
+                
+        for char in t:
+            if char not in dic or dic[char] < 1:
+                return False
+            
+            dic[char] -= 1
+            
+        return True
+
 ```
 
 ## Maximum Depth of Binary Tree
