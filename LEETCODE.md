@@ -1230,6 +1230,60 @@ class Solution:
         return False
 ```
 
+## N-Repeated Element in Size 2N Array
+
+```py
+'''
+N-Repeated Element in Size 2N Array
+Easy
+
+You are given an integer array nums with the following properties:
+
+    nums.length == 2 * n.
+    nums contains n + 1 unique elements.
+    Exactly one element of nums is repeated n times.
+
+Return the element that is repeated n times.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2,3,3]
+Output: 3
+
+Example 2:
+
+Input: nums = [2,1,2,5,3,2]
+Output: 2
+
+Example 3:
+
+Input: nums = [5,1,5,2,5,3,5,4]
+Output: 5
+'''
+
+
+class Solution:
+    def repeatedNTimes(self, nums: List[int]) -> int:
+        n = len(nums) // 2
+        
+        dic = {}
+        
+        for num in nums:
+            if num in dic:
+                dic[num] += 1
+            else:
+                dic[num] = 1
+                
+        for key, val in dic.items():
+            if val == n:
+                return key
+            
+        return -1
+
+```
+
 ## Merge Strings Alternately
 
 ```py
@@ -1701,6 +1755,57 @@ class Solution:
         while min_pos in memo:
             min_pos += 1
         return min_pos
+```
+
+## Check If N and Its Double Exist
+
+```py
+'''
+Check If N and Its Double Exist
+Easy
+
+Given an array arr of integers, check if there exists two integers N and M such that N is the double of M ( i.e. N = 2 * M).
+
+More formally check if there exists two indices i and j such that :
+
+    i != j
+    0 <= i, j < arr.length
+    arr[i] == 2 * arr[j]
+
+ 
+
+Example 1:
+
+Input: arr = [10,2,5,3]
+Output: true
+Explanation: N = 10 is the double of M = 5,that is, 10 = 2 * 5.
+
+Example 2:
+
+Input: arr = [7,1,14,11]
+Output: true
+Explanation: N = 14 is the double of M = 7,that is, 14 = 2 * 7.
+
+Example 3:
+
+Input: arr = [3,1,7,11]
+Output: false
+Explanation: In this case does not exist N and M, such that N = 2 * M.
+'''
+
+class Solution:
+    def checkIfExist(self, arr: List[int]) -> bool:
+        dic = {}
+        
+        for i, num in enumerate(arr):
+            dic[num] = i
+            
+        for i, num in enumerate(arr):
+            if (num * 2) in dic and i != dic[(num * 2)]:
+                return True
+            
+        return False
+
 ```
 
 ## Kids With the Greatest Number of Candies
@@ -3697,6 +3802,63 @@ class MinStack:
 # obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.getMin()
+
+```
+
+## Verifying an Alien Dictionary
+
+```py
+'''
+Verifying an Alien Dictionary
+Easy
+
+In an alien language, surprisingly they also use english lowercase letters, but possibly in a different order. 
+The order of the alphabet is some permutation of lowercase letters.
+
+Given a sequence of words written in the alien language, and the order of the alphabet, return true if and only 
+if the given words are sorted lexicographicaly in this alien language.
+
+ 
+
+Example 1:
+
+Input: words = ["hello","leetcode"], order = "hlabcdefgijkmnopqrstuvwxyz"
+Output: true
+Explanation: As 'h' comes before 'l' in this language, then the sequence is sorted.
+
+Example 2:
+
+Input: words = ["word","world","row"], order = "worldabcefghijkmnpqstuvxyz"
+Output: false
+Explanation: As 'd' comes after 'l' in this language, then words[0] > words[1], hence the sequence is unsorted.
+
+Example 3:
+
+Input: words = ["apple","app"], order = "abcdefghijklmnopqrstuvwxyz"
+Output: false
+Explanation: The first three characters "app" match, and the second string is shorter (in size.) According to lexicographical 
+rules "apple" > "app", because 'l' > '∅', where '∅' is defined as the blank character which is less than any other character
+'''
+
+class Solution:
+    def isAlienSorted(self, words: List[str], order: str) -> bool:
+        dic = {}
+        
+        for i, a in enumerate(order):
+            dic[a] = i
+            
+        for i in range(len(words)-1):
+            for j in range(len(words[i])):
+                if j >= len(words[i+1]):
+                    return False
+                
+                if words[i][j] != words[i+1][j]:
+                    if dic[words[i][j]] > dic[words[i+1][j]]:
+                        return False
+                    
+                    break
+        
+        return True
 
 ```
 
@@ -5844,6 +6006,81 @@ class Solution:
         Do not return anything, modify s in-place instead.
         """
         s.reverse()
+```
+
+## Keyboard Row
+
+```py
+'''
+Keyboard Row
+Easy
+
+Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard like the image below.
+
+In the American keyboard:
+
+    the first row consists of the characters "qwertyuiop",
+    the second row consists of the characters "asdfghjkl", and
+    the third row consists of the characters "zxcvbnm".
+
+ 
+
+Example 1:
+
+Input: words = ["Hello","Alaska","Dad","Peace"]
+Output: ["Alaska","Dad"]
+
+Example 2:
+
+Input: words = ["omk"]
+Output: []
+
+Example 3:
+
+Input: words = ["adsdf","sfd"]
+Output: ["adsdf","sfd"]
+'''
+
+
+class Solution:
+    def findWords(self, words: List[str]) -> List[str]:
+        
+        row1 = "qwertyuiop"
+        row2 = "asdfghjkl"
+        row3 = "zxcvbnm"
+        
+        res = []
+        
+        for word in words:
+            if word[0].lower() in row1:
+                print(f"{word} in row1")
+                for char in word:
+                    if char.lower() not in row1:
+                        break
+                        
+                else:
+                    res.append(word)
+                
+            elif word[0].lower() in row2:
+                print(f"{word} in row2")
+                for char in word:
+                    if char.lower() not in row2:
+                        break
+                        
+                else:
+                    res.append(word)
+                    
+            elif word[0].lower() in row3:
+                print(f"{word} in row3")
+                for char in word:
+                    if char.lower() not in row3:
+                        break
+                        
+                else:
+                    res.append(word)
+                    
+        return res
+
 ```
 
 ## Longest Palindrome
