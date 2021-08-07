@@ -1037,6 +1037,69 @@ class NumArray:
 
 ```
 
+## Reverse Integer
+
+```py
+'''
+Reverse Integer
+Easy
+
+Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.
+
+Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+
+ 
+
+Example 1:
+
+Input: x = 123
+Output: 321
+
+Example 2:
+
+Input: x = -123
+Output: -321
+
+Example 3:
+
+Input: x = 120
+Output: 21
+
+Example 4:
+
+Input: x = 0
+Output: 0
+'''
+
+
+class Solution:
+    def reverse(self, x: int) -> int:
+        neg = False
+        
+        if x == 0:
+            return x
+        
+        elif x < 0:
+            neg = True
+            x = abs(x)
+            
+        n = str(x)
+        
+        n = n[::-1]
+                
+        if neg:
+            n = f"-{n}"
+            
+        n = int(n)
+        
+        if n < (-2 ** 31) or n > (2 ** 31) - 1:
+            return 0
+        
+        else:
+            return n
+
+```
+
 ## Increasing Order Search Tree
 
 ```py
@@ -3080,6 +3143,52 @@ class Solution:
         return head
 ```
 
+## House Robber
+
+```py
+'''
+House Robber
+Medium
+
+You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
+
+Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2,3,1]
+Output: 4
+Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.
+
+Example 2:
+
+Input: nums = [2,7,9,3,1]
+Output: 12
+Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
+Total amount you can rob = 2 + 9 + 1 = 12.
+'''
+
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) <= 2:
+            return max(nums)
+        
+        dp = [0] * len(nums) 
+        
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+        
+        for i in range(2, len(nums)):
+            dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])
+            
+        return dp[-1]
+
+```
+
 ## N-th Tribonacci Number
 
 ```py
@@ -3158,6 +3267,108 @@ class Solution:
             head = fast
         return head
 
+```
+
+## Longest Palindromic Substring
+
+```py
+'''
+Longest Palindromic Substring
+Medium
+
+Given a string s, return the longest palindromic substring in s.
+
+ 
+
+Example 1:
+
+Input: s = "babad"
+Output: "bab"
+Note: "aba" is also a valid answer.
+
+Example 2:
+
+Input: s = "cbbd"
+Output: "bb"
+
+Example 3:
+
+Input: s = "a"
+Output: "a"
+
+Example 4:
+
+Input: s = "ac"
+Output: "a"
+'''
+
+# pretty fast solution using sliding window
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        def is_palin(s):
+            return s == s[::-1]
+        
+        if len(s) == 1:
+            return s
+        elif len(s) == 2:
+            if s[0] == s[1]:
+                return s
+            else:
+                return s[0]
+        
+        res = s[0]
+        
+        left = 0
+        right = 1
+        
+        while right < len(s):
+            temp = s[left:right+1]
+            
+            if is_palin(temp):
+                right += 1
+                
+                if left > 0:
+                    left -= 1
+                
+                if len(res) < len(temp):
+                    res = temp
+                    
+                continue
+                    
+            if left >= right:
+                right += 1
+            else:
+                left += 1
+                    
+        return res
+
+
+# naive way, don't use this lol
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        def is_palin(s):
+            return s == s[::-1]
+        
+        if len(s) == 1:
+            return s
+        elif len(s) == 2:
+            if s[0] == s[1]:
+                return s
+            else:
+                return s[0]
+        
+        res = s[0]
+        
+        for i in range(len(s)):
+            for j in range(i+1, len(s)):
+                temp = s[i:j+1]
+                
+                if len(temp) > len(res) and is_palin(temp):
+                    res = s[i:j+1]
+                    
+        return res
 ```
 
 ## Maximum Product of Two Elements in an Array
@@ -4485,6 +4696,71 @@ class Solution:
             cur_sum = max(nums[i] + cur_sum, nums[i])
             max_sum = max(cur_sum, max_sum)
         return max_sum
+```
+
+## Find the Distance Value Between Two Arrays
+
+```py
+'''
+Find the Distance Value Between Two Arrays
+Easy
+
+Given two integer arrays arr1 and arr2, and the integer d, return the distance value between the two arrays.
+
+The distance value is defined as the number of elements arr1[i] such that there is not any element arr2[j] where |arr1[i]-arr2[j]| <= d.
+
+ 
+
+Example 1:
+
+Input: arr1 = [4,5,8], arr2 = [10,9,1,8], d = 2
+Output: 2
+Explanation: 
+For arr1[0]=4 we have: 
+|4-10|=6 > d=2 
+|4-9|=5 > d=2 
+|4-1|=3 > d=2 
+|4-8|=4 > d=2 
+For arr1[1]=5 we have: 
+|5-10|=5 > d=2 
+|5-9|=4 > d=2 
+|5-1|=4 > d=2 
+|5-8|=3 > d=2
+For arr1[2]=8 we have:
+|8-10|=2 <= d=2
+|8-9|=1 <= d=2
+|8-1|=7 > d=2
+|8-8|=0 <= d=2
+
+Example 2:
+
+Input: arr1 = [1,4,2,3], arr2 = [-4,-3,6,10,20,30], d = 3
+Output: 2
+
+Example 3:
+
+Input: arr1 = [2,1,100,3], arr2 = [-5,-2,10,-3,7], d = 6
+Output: 1
+'''
+
+
+class Solution:
+    def findTheDistanceValue(self, arr1: List[int], arr2: List[int], d: int) -> int:
+        count = 0
+        
+        for a1 in arr1:
+            flag = True
+            
+            for a2 in arr2:
+                if abs(a1 - a2) <= d:
+                    flag = False
+                    break
+            
+            if flag == True:
+                count += 1
+        
+        return count
+
 ```
 
 ## Element Appearing More Than 25% In Sorted Array
@@ -6225,6 +6501,75 @@ class Solution:
 
 ```
 
+## Maximum Nesting Depth of the Parentheses
+
+```py
+'''
+Maximum Nesting Depth of the Parentheses
+Easy
+
+A string is a valid parentheses string (denoted VPS) if it meets one of the following:
+
+    It is an empty string "", or a single character not equal to "(" or ")",
+    It can be written as AB (A concatenated with B), where A and B are VPS's, or
+    It can be written as (A), where A is a VPS.
+
+We can similarly define the nesting depth depth(S) of any VPS S as follows:
+
+    depth("") = 0
+    depth(C) = 0, where C is a string with a single character not equal to "(" or ")".
+    depth(A + B) = max(depth(A), depth(B)), where A and B are VPS's.
+    depth("(" + A + ")") = 1 + depth(A), where A is a VPS.
+
+For example, "", "()()", and "()(()())" are VPS's (with nesting depths 0, 1, and 2), and ")(" and "(()" are not VPS's.
+
+Given a VPS represented as string s, return the nesting depth of s.
+
+ 
+
+Example 1:
+
+Input: s = "(1+(2*3)+((8)/4))+1"
+Output: 3
+Explanation: Digit 8 is inside of 3 nested parentheses in the string.
+
+Example 2:
+
+Input: s = "(1)+((2))+(((3)))"
+Output: 3
+
+Example 3:
+
+Input: s = "1+(2*3)/(2-1)"
+Output: 1
+
+Example 4:
+
+Input: s = "1"
+Output: 0
+'''
+
+
+class Solution:
+    def maxDepth(self, s: str) -> int:
+        stack = []
+        
+        res = 0
+        
+        for char in s:
+            if char == '(':
+                stack.append(char)
+                res = max(res, len(stack))
+                
+            if char == ')':
+                stack.pop()
+                
+            res = max(res, len(stack))
+            
+        return res
+
+```
+
 ## Maximum Score After Splitting a String
 
 ```py
@@ -6391,6 +6736,62 @@ class Solution:
         for _ in range(2):
             s.remove(max(s))
         return max(s)
+
+```
+
+## Maximum 69 Number
+
+```py
+'''
+Maximum 69 Number
+Easy
+
+Given a positive integer num consisting only of digits 6 and 9.
+
+Return the maximum number you can get by changing at most one digit (6 becomes 9, and 9 becomes 6).
+
+ 
+
+Example 1:
+
+Input: num = 9669
+Output: 9969
+Explanation: 
+Changing the first digit results in 6669.
+Changing the second digit results in 9969.
+Changing the third digit results in 9699.
+Changing the fourth digit results in 9666. 
+The maximum number is 9969.
+
+Example 2:
+
+Input: num = 9996
+Output: 9999
+Explanation: Changing the last digit 6 to 9 results in the maximum number.
+
+Example 3:
+
+Input: num = 9999
+Output: 9999
+Explanation: It is better not to apply any change.
+'''
+
+class Solution:
+    def maximum69Number (self, num: int) -> int:
+        num = str(num)
+        
+        res = ""
+        
+        found = False
+        
+        for char in num:
+            if char == '6' and found == False:
+                res += '9'
+                found = True
+            else:
+                res += char
+                
+        return int(res)
 
 ```
 
@@ -6642,6 +7043,63 @@ class Solution:
             else:
                 dic[target - nums[i]] = i
         return [-1, -1]
+```
+
+## Binary Number with Alternating Bits
+
+```py
+'''
+Binary Number with Alternating Bits
+Easy
+
+Given a positive integer, check whether it has alternating bits: namely, if two adjacent bits will always have different values.
+
+ 
+
+Example 1:
+
+Input: n = 5
+Output: true
+Explanation: The binary representation of 5 is: 101
+
+Example 2:
+
+Input: n = 7
+Output: false
+Explanation: The binary representation of 7 is: 111.
+
+Example 3:
+
+Input: n = 11
+Output: false
+Explanation: The binary representation of 11 is: 1011.
+
+Example 4:
+
+Input: n = 10
+Output: true
+Explanation: The binary representation of 10 is: 1010.
+
+Example 5:
+
+Input: n = 3
+Output: false
+'''
+
+
+class Solution:
+    def hasAlternatingBits(self, n: int) -> bool:
+        binary = bin(n)[2:]
+        
+        if len(binary) == 1:
+            return True
+        
+        for i in range(len(binary) - 1):
+            if binary[i] == binary[i+1]:
+                return False
+            
+        return True
+
 ```
 
 ## Add to Array-Form of Integer
