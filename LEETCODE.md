@@ -93,6 +93,95 @@ class Solution:
         return max_area
 ```
 
+## Fizz Buzz
+
+```py
+'''
+Fizz Buzz
+Easy
+
+Given an integer n, return a string array answer (1-indexed) where:
+
+    answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+    answer[i] == "Fizz" if i is divisible by 3.
+    answer[i] == "Buzz" if i is divisible by 5.
+    answer[i] == i if non of the above conditions are true.
+
+ 
+
+Example 1:
+
+Input: n = 3
+Output: ["1","2","Fizz"]
+
+Example 2:
+
+Input: n = 5
+Output: ["1","2","Fizz","4","Buzz"]
+
+Example 3:
+
+Input: n = 15
+Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+'''
+
+# writing a sick one-liner in python is a different feeling all together
+
+class Solution:
+    def fizzBuzz(self, n: int) -> List[str]:
+        return ["FizzBuzz" if num % 3 == 0 and num % 5 == 0 else "Fizz" if num % 3 == 0 else "Buzz" if num % 5 == 0 else str(num) for num in range(1, n + 1)]
+
+```
+
+## Best Time to Buy and Sell Stock II
+
+```py
+'''
+Best Time to Buy and Sell Stock II
+Easy
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+Find the maximum profit you can achieve. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).
+
+Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+
+ 
+
+Example 1:
+
+Input: prices = [7,1,5,3,6,4]
+Output: 7
+Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+
+Example 2:
+
+Input: prices = [1,2,3,4,5]
+Output: 4
+Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
+Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are engaging multiple transactions at the same time. You must sell before buying again.
+
+Example 3:
+
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transaction is done, i.e., max profit = 0.
+'''
+
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit = 0
+        
+        for i in range(len(prices) - 1):
+            if prices[i+1] > prices[i]:
+                profit += prices[i+1] - prices[i]
+            
+        return profit
+
+```
+
 ## Word Pattern
 
 ```py
@@ -295,6 +384,100 @@ class Solution:
         return res
 ```
 
+## ZigZag Conversion
+
+```py
+'''
+ZigZag Conversion
+Medium
+
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+
+And then read line by line: "PAHNAPLSIIGYIR"
+
+Write the code that will take a string and make this conversion given a number of rows:
+
+string convert(string s, int numRows);
+
+ 
+
+Example 1:
+
+Input: s = "PAYPALISHIRING", numRows = 3
+Output: "PAHNAPLSIIGYIR"
+
+Example 2:
+
+Input: s = "PAYPALISHIRING", numRows = 4
+Output: "PINALSIGYAHRPI"
+Explanation:
+P     I    N
+A   L S  I G
+Y A   H R
+P     I
+
+Example 3:
+
+Input: s = "A", numRows = 1
+Output: "A"
+'''
+
+
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if len(s) == 1 or numRows == 1:
+            return s
+            
+        zig_zag = []
+        
+        for _ in range(numRows):
+            zig_zag.append([" "] * (len(s)))
+            
+        i = 0
+        j = 0
+        point = 0
+        
+        down_or_slant = True
+        
+        while point < len(s):
+            if down_or_slant:
+                while i < numRows and point < len(s):
+                    zig_zag[i][j] = s[point]
+                    i += 1
+                    point += 1
+                    
+                down_or_slant = not down_or_slant
+                j += 1
+                
+            else:
+                i -= 2
+                
+                while i >= 0 and point < len(s):
+                    zig_zag[i][j] = s[point]
+                    i -= 1
+                    j += 1
+
+                    point += 1
+                    
+                i += 2
+                
+                down_or_slant = not down_or_slant
+                
+        res = ""
+        
+        for i in range(len(zig_zag)):
+            for j in range(len(zig_zag[i])):
+                if zig_zag[i][j] != " ":
+                    res += zig_zag[i][j]
+
+        return res
+
+```
+
 ## Rotate Array
 
 ```py
@@ -437,6 +620,48 @@ var isPalindrome = function (s) {
     rev_s = s.split("").reverse().join("");
     return s == rev_s;
 };
+
+```
+
+## Is Subsequence
+
+```py
+'''
+Is Subsequence
+Easy
+
+Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+
+A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+
+ 
+
+Example 1:
+
+Input: s = "abc", t = "ahbgdc"
+Output: true
+
+Example 2:
+
+Input: s = "axc", t = "ahbgdc"
+Output: false
+'''
+
+
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        i = 0
+        for char in s:
+            while i < len(t) and t[i] != char:
+                i += 1
+                
+            if i >= len(t):
+                return False
+            elif t[i] == char:
+                i += 1
+                continue
+                
+        return True
 
 ```
 
@@ -614,6 +839,91 @@ class Solution:
             else:
                 return [left+1, right+1]
         return [-1, -1]
+```
+
+## Design HashMap
+
+```py
+'''
+Design HashMap
+Easy
+
+Design a HashMap without using any built-in hash table libraries.
+
+Implement the MyHashMap class:
+
+    MyHashMap() initializes the object with an empty map.
+    void put(int key, int value) inserts a (key, value) pair into the HashMap. If the key already exists in the map, update the corresponding value.
+    int get(int key) returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key.
+    void remove(key) removes the key and its corresponding value if the map contains the mapping for the key.
+
+ 
+
+Example 1:
+
+Input
+["MyHashMap", "put", "put", "get", "get", "put", "get", "remove", "get"]
+[[], [1, 1], [2, 2], [1], [3], [2, 1], [2], [2], [2]]
+Output
+[null, null, null, 1, -1, null, 1, null, -1]
+
+Explanation
+MyHashMap myHashMap = new MyHashMap();
+myHashMap.put(1, 1); // The map is now [[1,1]]
+myHashMap.put(2, 2); // The map is now [[1,1], [2,2]]
+myHashMap.get(1);    // return 1, The map is now [[1,1], [2,2]]
+myHashMap.get(3);    // return -1 (i.e., not found), The map is now [[1,1], [2,2]]
+myHashMap.put(2, 1); // The map is now [[1,1], [2,1]] (i.e., update the existing value)
+myHashMap.get(2);    // return 1, The map is now [[1,1], [2,1]]
+myHashMap.remove(2); // remove the mapping for 2, The map is now [[1,1]]
+myHashMap.get(2);    // return -1 (i.e., not found), The map is now [[1,1]]
+
+ 
+
+Constraints:
+
+    0 <= key, value <= 106
+    At most 104 calls will be made to put, get, and remove.
+'''
+
+
+class MyHashMap:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.arr = [-1] * ((10 ** 6) + 1)
+        
+
+    def put(self, key: int, value: int) -> None:
+        """
+        value will always be non-negative.
+        """
+        self.arr[key] = value
+        
+
+    def get(self, key: int) -> int:
+        """
+        Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
+        """
+        return self.arr[key]
+        
+
+    def remove(self, key: int) -> None:
+        """
+        Removes the mapping of the specified value key if this map contains a mapping for the key
+        """
+        self.arr[key] = -1
+        
+
+
+# Your MyHashMap object will be instantiated and called as such:
+# obj = MyHashMap()
+# obj.put(key,value)
+# param_2 = obj.get(key)
+# obj.remove(key)
+
 ```
 
 ## Find Smallest Letter Greater Than Target
@@ -1585,6 +1895,161 @@ class Solution:
 
 ```
 
+## Hamming Distance
+
+```py
+'''
+Hamming Distance
+Easy
+
+The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+
+Given two integers x and y, return the Hamming distance between them.
+
+ 
+
+Example 1:
+
+Input: x = 1, y = 4
+Output: 2
+Explanation:
+1   (0 0 0 1)
+4   (0 1 0 0)
+       ↑   ↑
+The above arrows point to positions where the corresponding bits are different.
+
+Example 2:
+
+Input: x = 3, y = 1
+Output: 1
+'''
+
+
+class Solution:
+    def hammingDistance(self, x: int, y: int) -> int:
+        bits1 = bin(x)[2:]
+        bits2 = bin(y)[2:]
+        
+        dist = 0
+        
+        if len(bits1) < len(bits2):
+            temp = len(bits2) - len(bits1)
+            
+            bits1 = ("0" * temp) + bits1
+            
+        elif len(bits2) < len(bits1):
+            temp = len(bits1) - len(bits2)
+            
+            bits2 = ("0" * temp) + bits2
+        
+        for b1, b2 in zip(list(bits1), list(bits2)):
+            if b1 != b2:
+                dist += 1
+                
+        return dist
+
+```
+
+## Implement Stack using Queues
+
+```py
+'''
+Implement Stack using Queues
+Easy
+
+Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+
+Implement the MyStack class:
+
+    void push(int x) Pushes element x to the top of the stack.
+    int pop() Removes the element on the top of the stack and returns it.
+    int top() Returns the element on the top of the stack.
+    boolean empty() Returns true if the stack is empty, false otherwise.
+
+Notes:
+
+    You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
+    Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.
+
+ 
+
+Example 1:
+
+Input
+["MyStack", "push", "push", "top", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 2, 2, false]
+
+Explanation
+MyStack myStack = new MyStack();
+myStack.push(1);
+myStack.push(2);
+myStack.top(); // return 2
+myStack.pop(); // return 2
+myStack.empty(); // return False
+
+ 
+
+Constraints:
+
+    1 <= x <= 9
+    At most 100 calls will be made to push, pop, top, and empty.
+    All the calls to pop and top are valid.
+'''
+
+
+class MyStack:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.q1 = []
+        self.q2 = []
+        
+
+    def push(self, x: int) -> None:
+        """
+        Push element x onto stack.
+        """
+        self.q2 = self.q1.copy()
+        self.q1 = []
+        self.q1.append(x)
+        self.q1.extend(self.q2)
+        
+
+    def pop(self) -> int:
+        """
+        Removes the element on top of the stack and returns that element.
+        """
+        return self.q1.pop(0)
+        
+
+    def top(self) -> int:
+        """
+        Get the top element.
+        """
+        return self.q1[0]
+        
+
+    def empty(self) -> bool:
+        """
+        Returns whether the stack is empty.
+        """
+        return len(self.q1) == 0
+        
+
+
+# Your MyStack object will be instantiated and called as such:
+# obj = MyStack()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.empty()
+
+```
+
 ## Squares of a Sorted Array
 
 ```py
@@ -1818,6 +2283,182 @@ class Solution:
         while min_pos in memo:
             min_pos += 1
         return min_pos
+```
+
+## Jewels and Stones
+
+```py
+'''
+Jewels and Stones
+Easy
+
+You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels.
+
+Letters are case sensitive, so "a" is considered a different type of stone from "A".
+
+ 
+
+Example 1:
+
+Input: jewels = "aA", stones = "aAAbbbb"
+Output: 3
+
+Example 2:
+
+Input: jewels = "z", stones = "ZZ"
+Output: 0
+'''
+
+
+class Solution:
+    def numJewelsInStones(self, jewels: str, stones: str) -> int:
+        hs = set(list(jewels))
+        
+        res = 0
+        
+        for char in stones:
+            if char in hs:
+                res += 1
+                
+        return res
+
+```
+
+## Longest Continuous Increasing Subsequence
+
+```py
+'''
+Longest Continuous Increasing Subsequence
+Easy
+
+Given an unsorted array of integers nums, return the length of the longest continuous increasing subsequence (i.e. subarray). The subsequence must be strictly increasing.
+
+A continuous increasing subsequence is defined by two indices l and r (l < r) such that it is [nums[l], nums[l + 1], ..., nums[r - 1], nums[r]] and for each l <= i < r, nums[i] < nums[i + 1].
+
+ 
+
+Example 1:
+
+Input: nums = [1,3,5,4,7]
+Output: 3
+Explanation: The longest continuous increasing subsequence is [1,3,5] with length 3.
+Even though [1,3,5,7] is an increasing subsequence, it is not continuous as elements 5 and 7 are separated by element
+4.
+
+Example 2:
+
+Input: nums = [2,2,2,2,2]
+Output: 1
+Explanation: The longest continuous increasing subsequence is [2] with length 1. Note that it must be strictly
+increasing.
+'''
+
+
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return 1
+        
+        max_len = 1
+        cur_len = 1
+        
+        i = 1
+        
+        while i < len(nums):
+            if nums[i-1] < nums[i]:
+                cur_len += 1
+            else:
+                cur_len = 1
+                
+            max_len = max(max_len, cur_len)
+            i += 1
+            
+        return max_len
+
+```
+
+## Perfect Number
+
+```py
+'''
+Perfect Number
+Easy
+
+A perfect number is a positive integer that is equal to the sum of its positive divisors, excluding the number itself. A divisor of an integer x is an integer that can divide x evenly.
+
+Given an integer n, return true if n is a perfect number, otherwise return false.
+
+ 
+
+Example 1:
+
+Input: num = 28
+Output: true
+Explanation: 28 = 1 + 2 + 4 + 7 + 14
+1, 2, 4, 7, and 14 are all divisors of 28.
+
+Example 2:
+
+Input: num = 6
+Output: true
+
+Example 3:
+
+Input: num = 496
+Output: true
+
+Example 4:
+
+Input: num = 8128
+Output: true
+
+Example 5:
+
+Input: num = 2
+Output: false
+'''
+
+# [accepted] optimal solution
+
+class Solution:
+    def checkPerfectNumber(self, num: int) -> bool:
+        if num <= 0:
+            return False
+        
+        div_sum = 0
+        i = 1
+        
+        while (i * i) <= num:
+            if num % i == 0:
+                div_sum += i
+                
+                if (i * i) != num:
+                    div_sum += num // i
+            
+            i += 1
+            
+        return div_sum - num == num
+
+
+# [accepted] very simple solution, but need to know what you're doing and not exactly an "algorithm" 
+
+class Solution:
+    def checkPerfectNumber(self, num: int) -> bool:
+        return num in (6, 28, 496, 8128, 33550336)
+      
+      
+ # [time limit exceeded] brute force solution, may slow down for large numbers
+
+class Solution:
+    def checkPerfectNumber(self, num: int) -> bool:
+        divisors_sum = 0
+        
+        for i in range(1, num):
+            if num % i == 0:
+                divisors_sum += i
+                
+        return divisors_sum == num
+
 ```
 
 ## Check If N and Its Double Exist
@@ -2340,6 +2981,131 @@ class Solution:
         return root1
 ```
 
+## Longer Contiguous Segments of Ones than Zeros
+
+```py
+'''
+Longer Contiguous Segments of Ones than Zeros
+Easy
+
+Given a binary string s, return true if the longest contiguous segment of 1s is strictly longer than the longest contiguous segment of 0s in s. Return false otherwise.
+
+    For example, in s = "110100010" the longest contiguous segment of 1s has length 2, and the longest contiguous segment of 0s has length 3.
+
+Note that if there are no 0s, then the longest contiguous segment of 0s is considered to have length 0. The same applies if there are no 1s.
+
+ 
+
+Example 1:
+
+Input: s = "1101"
+Output: true
+Explanation:
+The longest contiguous segment of 1s has length 2: "1101"
+The longest contiguous segment of 0s has length 1: "1101"
+The segment of 1s is longer, so return true.
+
+Example 2:
+
+Input: s = "111000"
+Output: false
+Explanation:
+The longest contiguous segment of 1s has length 3: "111000"
+The longest contiguous segment of 0s has length 3: "111000"
+The segment of 1s is not longer, so return false.
+
+Example 3:
+
+Input: s = "110100010"
+Output: false
+Explanation:
+The longest contiguous segment of 1s has length 2: "110100010"
+The longest contiguous segment of 0s has length 3: "110100010"
+The segment of 1s is not longer, so return false.
+'''
+
+
+class Solution:
+    def checkZeroOnes(self, s: str) -> bool:
+        nums = [int(char) for char in s]
+                        
+        if len(nums) == 1:
+            return True if nums[0] == 1 else False
+        
+        elif 1 not in nums:
+            return False
+        
+        elif 0 not in nums:
+            return True
+        
+        max_len1 = 1
+        cur_len1 = 0
+        
+        max_len0 = 1
+        cur_len0 = 0
+        
+        for val in nums:
+            if val == 1:
+                cur_len1 += 1
+                cur_len0 = 0
+            else:
+                cur_len1 = 0
+                cur_len0 += 1
+                
+            max_len1 = max(max_len1, cur_len1)
+            max_len0 = max(max_len0, cur_len0)
+            
+        return True if max_len1 > max_len0 else False
+
+```
+
+## Truncate Sentence
+
+```py
+'''
+Truncate Sentence
+Easy
+
+A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each of the words consists of only uppercase and lowercase English letters (no punctuation).
+
+    For example, "Hello World", "HELLO", and "hello world hello world" are all sentences.
+
+You are given a sentence s​​​​​​ and an integer k​​​​​​. You want to truncate s​​​​​​ such that it contains only the first k​​​​​​ words. Return s​​​​​​ after truncating it.
+
+ 
+
+Example 1:
+
+Input: s = "Hello how are you Contestant", k = 4
+Output: "Hello how are you"
+Explanation:
+The words in s are ["Hello", "how" "are", "you", "Contestant"].
+The first 4 words are ["Hello", "how", "are", "you"].
+Hence, you should return "Hello how are you".
+
+Example 2:
+
+Input: s = "What is the solution to this problem", k = 4
+Output: "What is the solution"
+Explanation:
+The words in s are ["What", "is" "the", "solution", "to", "this", "problem"].
+The first 4 words are ["What", "is", "the", "solution"].
+Hence, you should return "What is the solution".
+
+Example 3:
+
+Input: s = "chopper is not a tanuki", k = 5
+Output: "chopper is not a tanuki"
+'''
+
+class Solution:
+    def truncateSentence(self, s: str, k: int) -> str:
+        words = s.split(" ")
+        
+        return ' '.join(words[:k])
+
+```
+
 ## Sort Array By Parity
 
 ```py
@@ -2475,6 +3241,49 @@ class Solution:
             elif min_val == value:
                 res.append(key)
         return res
+
+```
+
+## Find Numbers with Even Number of Digits
+
+```py
+'''
+Find Numbers with Even Number of Digits
+Easy
+Given an array nums of integers, return how many of them contain an even number of digits.
+
+ 
+
+Example 1:
+
+Input: nums = [12,345,2,6,7896]
+Output: 2
+Explanation: 
+12 contains 2 digits (even number of digits). 
+345 contains 3 digits (odd number of digits). 
+2 contains 1 digit (odd number of digits). 
+6 contains 1 digit (odd number of digits). 
+7896 contains 4 digits (even number of digits). 
+Therefore only 12 and 7896 contain an even number of digits.
+
+Example 2:
+
+Input: nums = [555,901,482,1771]
+Output: 1 
+Explanation: 
+Only 1771 contains an even number of digits.
+'''
+
+
+class Solution:
+    def findNumbers(self, nums: List[int]) -> int:
+        count = 0
+        
+        for num in nums:
+            if len(str(num)) % 2 == 0:
+                count += 1
+                
+        return count
 
 ```
 
@@ -2798,6 +3607,84 @@ class Solution:
 
 ```
 
+## Design HashSet
+
+```py
+'''
+Design HashSet
+Easy
+
+Design a HashSet without using any built-in hash table libraries.
+
+Implement MyHashSet class:
+
+    void add(key) Inserts the value key into the HashSet.
+    bool contains(key) Returns whether the value key exists in the HashSet or not.
+    void remove(key) Removes the value key in the HashSet. If key does not exist in the HashSet, do nothing.
+
+ 
+
+Example 1:
+
+Input
+["MyHashSet", "add", "add", "contains", "contains", "add", "contains", "remove", "contains"]
+[[], [1], [2], [1], [3], [2], [2], [2], [2]]
+Output
+[null, null, null, true, false, null, true, null, false]
+
+Explanation
+MyHashSet myHashSet = new MyHashSet();
+myHashSet.add(1);      // set = [1]
+myHashSet.add(2);      // set = [1, 2]
+myHashSet.contains(1); // return True
+myHashSet.contains(3); // return False, (not found)
+myHashSet.add(2);      // set = [1, 2]
+myHashSet.contains(2); // return True
+myHashSet.remove(2);   // set = [1]
+myHashSet.contains(2); // return False, (already removed)
+
+ 
+
+Constraints:
+
+    0 <= key <= 106
+    At most 104 calls will be made to add, remove, and contains.
+'''
+
+
+class MyHashSet:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.arr = [False] * ((10 ** 6) + 1)
+        
+
+    def add(self, key: int) -> None:
+        self.arr[key] = True
+        
+
+    def remove(self, key: int) -> None:
+        self.arr[key] = False
+        
+
+    def contains(self, key: int) -> bool:
+        """
+        Returns true if this set contains the specified element
+        """
+        return self.arr[key]
+        
+
+
+# Your MyHashSet object will be instantiated and called as such:
+# obj = MyHashSet()
+# obj.add(key)
+# obj.remove(key)
+# param_3 = obj.contains(key)
+
+```
+
 ## Number of Islands
 
 ```py
@@ -2913,6 +3800,53 @@ class Solution:
         
         slow.next = slow.next.next
         return temp.next
+
+```
+
+## Max Consecutive Ones
+
+```py
+'''
+Max Consecutive Ones
+Easy
+
+Given a binary array nums, return the maximum number of consecutive 1's in the array.
+
+ 
+
+Example 1:
+
+Input: nums = [1,1,0,1,1,1]
+Output: 3
+Explanation: The first two digits or the last three digits are consecutive 1s. The maximum number of consecutive 1s is 3.
+
+Example 2:
+
+Input: nums = [1,0,1,1,0,1]
+Output: 2
+'''
+
+
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+                
+        elif 1 not in nums:
+            return 0
+        
+        max_len = 1
+        cur_len = 0
+        
+        for val in nums:
+            if val == 1:
+                cur_len += 1
+            else:
+                cur_len = 0
+                
+            max_len = max(max_len, cur_len)
+            
+        return max_len
 
 ```
 
@@ -3702,6 +4636,123 @@ class Solution:
         return True
 ```
 
+## Consecutive Characters
+
+```py
+'''
+Consecutive Characters
+Easy
+
+Given a string s, the power of the string is the maximum length of a non-empty substring that contains only one unique character.
+
+Return the power of the string.
+
+ 
+
+Example 1:
+
+Input: s = "leetcode"
+Output: 2
+Explanation: The substring "ee" is of length 2 with the character 'e' only.
+
+Example 2:
+
+Input: s = "abbcccddddeeeeedcba"
+Output: 5
+Explanation: The substring "eeeee" is of length 5 with the character 'e' only.
+
+Example 3:
+
+Input: s = "triplepillooooow"
+Output: 5
+
+Example 4:
+
+Input: s = "hooraaaaaaaaaaay"
+Output: 11
+
+Example 5:
+
+Input: s = "tourist"
+Output: 1
+'''
+
+
+class Solution:
+    def maxPower(self, s: str) -> int:
+        if len(s) == 1:
+            return 1
+        
+        max_len = 1
+        
+        left = 0
+        right = 0
+        
+        while right < len(s):
+            cache = s[right]
+            
+            right += 1
+            
+            if right < len(s) and s[right] == cache:
+                max_len = max(max_len, right - left + 1)
+                continue
+            else:
+                left = right
+                
+        return max_len
+
+```
+
+## Self Dividing Numbers
+
+```py
+'''
+Self Dividing Numbers
+Easy
+
+A self-dividing number is a number that is divisible by every digit it contains.
+
+    For example, 128 is a self-dividing number because 128 % 1 == 0, 128 % 2 == 0, and 128 % 8 == 0.
+
+A self-dividing number is not allowed to contain the digit zero.
+
+Given two integers left and right, return a list of all the self-dividing numbers in the range [left, right].
+
+ 
+
+Example 1:
+
+Input: left = 1, right = 22
+Output: [1,2,3,4,5,6,7,8,9,11,12,15,22]
+
+Example 2:
+
+Input: left = 47, right = 85
+Output: [48,55,66,77]
+'''
+
+
+class Solution:
+    def selfDividingNumbers(self, left: int, right: int) -> List[int]:
+        res = []
+        
+        for num in range(left, right+1):
+            divs = [int(char) for char in str(num)]
+            
+            if 0 not in divs and self.divides(divs, num):
+                res.append(num)
+                
+        return res
+    
+    def divides(self, divs, num):
+        for n in divs:
+            if num % n != 0:
+                return False
+            
+        return True
+
+```
+
 ## Check If a Word Occurs As a Prefix of Any Word in a Sentence
 
 ```js
@@ -4101,6 +5152,48 @@ class MinStack:
 
 ```
 
+## Pascal's Triangle
+
+```py
+'''
+Pascal's Triangle
+Easy
+
+Given an integer numRows, return the first numRows of Pascal's triangle.
+
+In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+
+ 
+
+Example 1:
+
+Input: numRows = 5
+Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+
+Example 2:
+
+Input: numRows = 1
+Output: [[1]]
+'''
+
+
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        triangle = []
+
+        for row_num in range(numRows):
+            row = [None for _ in range(row_num + 1)]
+            row[0], row[-1] = 1, 1
+
+            for j in range(1, len(row) - 1):
+                row[j] = triangle[row_num - 1][j - 1] + triangle[row_num - 1][j]
+
+            triangle.append(row)
+
+        return triangle
+
+```
+
 ## Verifying an Alien Dictionary
 
 ```py
@@ -4356,6 +5449,58 @@ class Solution:
 
         nums[i+1], nums[high] = nums[high], nums[i+1]
         return (i+1)
+```
+
+## Maximum Absolute Sum of Any Subarray
+
+```py
+'''
+Maximum Absolute Sum of Any Subarray
+Medium
+
+You are given an integer array nums. The absolute sum of a subarray [numsl, numsl+1, ..., numsr-1, numsr] is abs(numsl + numsl+1 + ... + numsr-1 + numsr).
+
+Return the maximum absolute sum of any (possibly empty) subarray of nums.
+
+Note that abs(x) is defined as follows:
+
+    If x is a negative integer, then abs(x) = -x.
+    If x is a non-negative integer, then abs(x) = x.
+
+ 
+
+Example 1:
+
+Input: nums = [1,-3,2,3,-4]
+Output: 5
+Explanation: The subarray [2,3] has absolute sum = abs(2+3) = abs(5) = 5.
+
+Example 2:
+
+Input: nums = [2,-5,1,-4,3,-2]
+Output: 8
+Explanation: The subarray [-5,1,-4] has absolute sum = abs(-5+1-4) = abs(-8) = 8.
+'''
+
+
+class Solution:
+    def maxAbsoluteSum(self, nums: List[int]) -> int:
+        if len(nums) <= 1:
+            return abs(nums[0])
+        
+        sum1 = 0
+        sum2 = 0
+        res = 0
+        
+        for num in nums:
+            sum1 += num
+            sum2 += num
+            sum1 = max(sum1, 0)
+            sum2 = min(sum2, 0)
+            res = max(res, max(sum1, -1 * sum2))
+        
+        return res
+
 ```
 
 ## Shuffle the Array
@@ -4929,6 +6074,56 @@ class Solution:
             exor = exor ^ (start + 2*i)
             
         return exor
+```
+
+## Count the Number of Consistent Strings
+
+```py
+'''
+Count the Number of Consistent Strings
+Easy
+
+You are given a string allowed consisting of distinct characters and an array of strings words. A string is consistent if all characters in the string appear in the string allowed.
+
+Return the number of consistent strings in the array words.
+
+ 
+
+Example 1:
+
+Input: allowed = "ab", words = ["ad","bd","aaab","baa","badab"]
+Output: 2
+Explanation: Strings "aaab" and "baa" are consistent since they only contain characters 'a' and 'b'.
+
+Example 2:
+
+Input: allowed = "abc", words = ["a","b","c","ab","ac","bc","abc"]
+Output: 7
+Explanation: All strings are consistent.
+
+Example 3:
+
+Input: allowed = "cad", words = ["cc","acd","b","ba","bac","bad","ac","d"]
+Output: 4
+Explanation: Strings "cc", "acd", "ac", and "d" are consistent.
+'''
+
+class Solution:
+    def countConsistentStrings(self, allowed: str, words: List[str]) -> int:
+        count = 0
+        for word in words:
+            if self.is_present(word, allowed):
+                count += 1
+                
+        return count
+    
+    def is_present(self, word, allowed):
+        for char in word:
+            if char not in allowed:
+                return False
+            
+        return True
+
 ```
 
 ## Counting Bits
@@ -5512,6 +6707,116 @@ class Solution:
         return res
 ```
 
+## Implement Queue using Stacks
+
+```py
+'''
+Implement Queue using Stacks
+Easy
+
+Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+
+Implement the MyQueue class:
+
+    void push(int x) Pushes element x to the back of the queue.
+    int pop() Removes the element from the front of the queue and returns it.
+    int peek() Returns the element at the front of the queue.
+    boolean empty() Returns true if the queue is empty, false otherwise.
+
+Notes:
+
+    You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
+    Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
+
+Follow-up: Can you implement the queue such that each operation is amortized O(1) time complexity? In other words, performing n operations will take overall O(n) time even if one of those operations may take longer.
+
+ 
+
+Example 1:
+
+Input
+["MyQueue", "push", "push", "peek", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 1, 1, false]
+
+Explanation
+MyQueue myQueue = new MyQueue();
+myQueue.push(1); // queue is: [1]
+myQueue.push(2); // queue is: [1, 2] (leftmost is front of the queue)
+myQueue.peek(); // return 1
+myQueue.pop(); // return 1, queue is [2]
+myQueue.empty(); // return false
+
+ 
+
+Constraints:
+
+    1 <= x <= 9
+    At most 100 calls will be made to push, pop, peek, and empty.
+    All the calls to pop and peek are valid.
+'''
+
+
+class MyQueue:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.s1 = []
+        self.s2 = []
+        
+
+    def push(self, x: int) -> None:
+        """
+        Push element x to the back of queue.
+        """
+        def s2_empty():
+            return len(self.s2) == 0
+            
+        self.s2 = []
+        
+        while not self.empty():
+            self.s2.append(self.s1.pop())
+            
+        self.s1.append(x)
+        
+        while not s2_empty():
+            self.s1.append(self.s2.pop())
+        
+
+    def pop(self) -> int:
+        """
+        Removes the element from in front of queue and returns that element.
+        """
+        return self.s1.pop()
+        
+
+    def peek(self) -> int:
+        """
+        Get the front element.
+        """
+        return self.s1[-1]
+        
+
+    def empty(self) -> bool:
+        """
+        Returns whether the queue is empty.
+        """
+        return len(self.s1) == 0
+        
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
+
+```
+
 ## Same Tree
 
 ```py
@@ -5852,6 +7157,40 @@ class Solution:
         board[i][j] = temp
         return found
         
+
+```
+
+## Check if Binary String Has at Most One Segment of Ones
+
+```py
+'''
+Check if Binary String Has at Most One Segment of Ones
+Easy
+
+Given a binary string s without leading zeros, return true if s contains at most one contiguous segment of ones. Otherwise, return false.
+
+ 
+
+Example 1:
+
+Input: s = "1001"
+Output: false
+Explanation: The ones do not form a contiguous segment.
+
+Example 2:
+
+Input: s = "110"
+Output: true
+'''
+
+class Solution:
+    def checkOnesSegment(self, s: str) -> bool:
+        s = [char for char in s.split('0') if char != '']
+    
+        if len(s) > 1:
+            return False
+        else:
+            return True
 
 ```
 
