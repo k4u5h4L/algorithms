@@ -2564,6 +2564,80 @@ class Solution:
 
 ```
 
+## Guess Number Higher or Lower
+
+```py
+'''
+Guess Number Higher or Lower
+Easy
+
+We are playing the Guess Game. The game is as follows:
+
+I pick a number from 1 to n. You have to guess which number I picked.
+
+Every time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess.
+
+You call a pre-defined API int guess(int num), which returns 3 possible results:
+
+    -1: The number I picked is lower than your guess (i.e. pick < num).
+    1: The number I picked is higher than your guess (i.e. pick > num).
+    0: The number I picked is equal to your guess (i.e. pick == num).
+
+Return the number that I picked.
+
+ 
+
+Example 1:
+
+Input: n = 10, pick = 6
+Output: 6
+
+Example 2:
+
+Input: n = 1, pick = 1
+Output: 1
+
+Example 3:
+
+Input: n = 2, pick = 1
+Output: 1
+
+Example 4:
+
+Input: n = 2, pick = 2
+Output: 2
+'''
+
+# The guess API is already defined for you.
+# @param num, your guess
+# @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
+# def guess(num: int) -> int:
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        if n == 1:
+            return 1
+                
+        left = 1
+        right = n
+        
+        res = 0
+        
+        while left <= right:
+            mid = left + (right - left) // 2
+            res = guess(mid)
+            
+            if res == 0:
+                return mid
+            elif res == -1:
+                right = mid - 1
+            elif res == 1:
+                left = mid + 1
+                
+        return -1
+
+```
+
 ## Remove Duplicates from Sorted Array II
 
 ```py
@@ -2821,6 +2895,59 @@ class Solution:
 
 ```
 
+## Factorial Trailing Zeroes
+
+```py
+'''
+Factorial Trailing Zeroes
+Easy
+
+Given an integer n, return the number of trailing zeroes in n!.
+
+Follow up: Could you write a solution that works in logarithmic time complexity?
+
+ 
+
+Example 1:
+
+Input: n = 3
+Output: 0
+Explanation: 3! = 6, no trailing zero.
+
+Example 2:
+
+Input: n = 5
+Output: 1
+Explanation: 5! = 120, one trailing zero.
+
+Example 3:
+
+Input: n = 0
+Output: 0
+'''
+
+
+class Solution:
+    def trailingZeroes(self, n: int) -> int:
+        fact = 1
+        
+        while n > 0:
+            fact *= n
+            n -= 1
+            
+        fact = str(fact)[::-1]
+        res = 0
+        
+        for char in fact:
+            if char != '0':
+                return res
+            
+            res += 1
+        
+        return res
+
+```
+
 ## Power of Four
 
 ```py
@@ -2981,6 +3108,47 @@ class Solution:
         return root1
 ```
 
+## Ransom Note
+
+```py
+'''
+Ransom Note
+Easy
+
+Given two stings ransomNote and magazine, return true if ransomNote can be constructed from magazine and false otherwise.
+
+Each letter in magazine can only be used once in ransomNote.
+
+ 
+
+Example 1:
+
+Input: ransomNote = "a", magazine = "b"
+Output: false
+
+Example 2:
+
+Input: ransomNote = "aa", magazine = "ab"
+Output: false
+
+Example 3:
+
+Input: ransomNote = "aa", magazine = "aab"
+Output: true
+'''
+
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:        
+        for char in ransomNote:
+            if char not in magazine:
+                return False
+            
+            magazine = magazine.replace(char, "", 1)
+            
+        return True
+
+```
+
 ## Longer Contiguous Segments of Ones than Zeros
 
 ```py
@@ -3056,6 +3224,128 @@ class Solution:
             max_len0 = max(max_len0, cur_len0)
             
         return True if max_len1 > max_len0 else False
+
+```
+
+## Number of Segments in a String
+
+```py
+'''
+Number of Segments in a String
+Easy
+
+You are given a string s, return the number of segments in the string. 
+
+A segment is defined to be a contiguous sequence of non-space characters.
+
+ 
+
+Example 1:
+
+Input: s = "Hello, my name is John"
+Output: 5
+Explanation: The five segments are ["Hello,", "my", "name", "is", "John"]
+
+Example 2:
+
+Input: s = "Hello"
+Output: 1
+
+Example 3:
+
+Input: s = "love live! mu'sic forever"
+Output: 4
+
+Example 4:
+
+Input: s = ""
+Output: 0
+'''
+
+
+class Solution:
+    def countSegments(self, s: str) -> int:
+        if s == "":
+            return 0
+        
+        return len([char for char in s.split(" ") if char != ""])
+
+```
+
+## Summary Ranges
+
+```py
+'''
+Summary Ranges
+Easy
+
+You are given a sorted unique integer array nums.
+
+Return the smallest sorted list of ranges that cover all the numbers in the array exactly. That is, each element of nums is covered by exactly one of the ranges, and there is no integer x such that x is in one of the ranges but not in nums.
+
+Each range [a,b] in the list should be output as:
+
+    "a->b" if a != b
+    "a" if a == b
+
+ 
+
+Example 1:
+
+Input: nums = [0,1,2,4,5,7]
+Output: ["0->2","4->5","7"]
+Explanation: The ranges are:
+[0,2] --> "0->2"
+[4,5] --> "4->5"
+[7,7] --> "7"
+
+Example 2:
+
+Input: nums = [0,2,3,4,6,8,9]
+Output: ["0","2->4","6","8->9"]
+Explanation: The ranges are:
+[0,0] --> "0"
+[2,4] --> "2->4"
+[6,6] --> "6"
+[8,9] --> "8->9"
+
+Example 3:
+
+Input: nums = []
+Output: []
+
+Example 4:
+
+Input: nums = [-1]
+Output: ["-1"]
+
+Example 5:
+
+Input: nums = [0]
+Output: ["0"]
+'''
+
+
+class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        res = []
+        
+        s = ""
+        i = 0
+        
+        while i < len(nums):
+            num1 = nums[i]
+            
+            while i < len(nums) - 1 and nums[i+1] == nums[i] + 1:
+                i += 1
+            if num1 == nums[i]:
+                s = str(num1)
+            else:
+                s = f"{num1}->{nums[i]}"
+            i += 1
+            res.append(s)
+            
+        return res
 
 ```
 
@@ -6189,6 +6479,69 @@ class Solution:
         return max_len;
 ```
 
+## Partition List
+
+```py
+'''
+Partition List
+Medium
+
+Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+
+You should preserve the original relative order of the nodes in each of the two partitions.
+
+ 
+
+Example 1:
+
+Input: head = [1,4,3,2,5,2], x = 3
+Output: [1,2,2,4,3,5]
+
+Example 2:
+
+Input: head = [2,1], x = 2
+Output: [1,2]
+'''
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        if head == None:
+            return head
+        
+        arr = []
+        cur = head
+        
+        while cur != None:
+            arr.append(cur.val)
+            cur = cur.next
+            
+        left = []
+        right = []
+        
+        for a in arr:
+            if a < x:
+                left.append(a)
+            else:
+                right.append(a)
+                
+        arr = left + right
+        cur = head
+        
+        while cur != None:
+            cur.val = arr[0]
+            cur = cur.next
+            arr.pop(0)
+            
+        return head
+
+```
+
 ## Binary Tree Right Side View
 
 ```py
@@ -6682,6 +7035,48 @@ class LRUCache:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+
+```
+
+## Valid Perfect Square
+
+```py
+'''
+Valid Perfect Square
+Easy
+
+Given a positive integer num, write a function which returns True if num is a perfect square else False.
+
+Follow up: Do not use any built-in library function such as sqrt.
+
+ 
+
+Example 1:
+
+Input: num = 16
+Output: true
+
+Example 2:
+
+Input: num = 14
+Output: false
+'''
+
+
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        if num == 1:
+            return True
+        
+        i = 2
+        
+        while (i * i) <= num:
+            if (i * i ) == num:
+                return True
+            
+            i += 1
+            
+        return False
 
 ```
 
@@ -8225,6 +8620,60 @@ class Solution:
         if False in seen:
             return False
         return True
+```
+
+## Find the Difference
+
+```py
+'''
+Find the Difference
+Easy
+
+You are given two strings s and t.
+
+String t is generated by random shuffling string s and then add one more letter at a random position.
+
+Return the letter that was added to t.
+
+ 
+
+Example 1:
+
+Input: s = "abcd", t = "abcde"
+Output: "e"
+Explanation: 'e' is the letter that was added.
+
+Example 2:
+
+Input: s = "", t = "y"
+Output: "y"
+
+Example 3:
+
+Input: s = "a", t = "aa"
+Output: "a"
+
+Example 4:
+
+Input: s = "ae", t = "aea"
+Output: "a"
+'''
+
+
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        s = list(s)
+        s.sort()
+        
+        t = list(t)
+        t.sort()
+        
+        for a1, a2 in zip(s, t):
+            if a1 != a2:
+                return a2
+            
+        return t[-1]
+
 ```
 
 ## Middle of the Linked List
