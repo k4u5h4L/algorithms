@@ -19,10 +19,7 @@ for file_name in file_names:
         content += f.read()
         content += "\n```\n\n"
 
-        f.close()
-
 with open(f"{sys.argv[2].upper()}.md", "w") as f:
     f.write(content)
-    f.close()
 
 print("Content has been written to file.")
