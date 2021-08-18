@@ -1112,6 +1112,62 @@ class Solution:
 
 ```
 
+## Kth Largest Element in a Stream
+
+```py
+'''
+Kth Largest Element in a Stream
+Easy
+
+Design a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Implement KthLargest class:
+
+    KthLargest(int k, int[] nums) Initializes the object with the integer k and the stream of integers nums.
+    int add(int val) Appends the integer val to the stream and returns the element representing the kth largest element in the stream.
+
+ 
+
+Example 1:
+
+Input
+["KthLargest", "add", "add", "add", "add", "add"]
+[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]
+Output
+[null, 4, 5, 5, 8, 8]
+
+Explanation
+KthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);
+kthLargest.add(3);   // return 4
+kthLargest.add(5);   // return 5
+kthLargest.add(10);  // return 5
+kthLargest.add(9);   // return 8
+kthLargest.add(4);   // return 8
+'''
+
+
+class KthLargest:
+
+    def __init__(self, k: int, nums: List[int]):
+        self.k = k
+        nums.sort(reverse=True)
+        self.nums = nums
+        
+
+    def add(self, val: int) -> int:
+        self.nums.append(val)
+        self.nums.sort(reverse=True)
+                
+        return self.nums[self.k-1]
+        
+
+
+# Your KthLargest object will be instantiated and called as such:
+# obj = KthLargest(k, nums)
+# param_1 = obj.add(val)
+
+```
+
 ## Matrix Diagonal Sum
 
 ```py
@@ -1439,6 +1495,86 @@ class NumArray:
 
 ```
 
+## Find Mode in Binary Search Tree
+
+```py
+'''
+Find Mode in Binary Search Tree
+Easy
+
+Given the root of a binary search tree (BST) with duplicates, return all the mode(s) (i.e., the most frequently occurred element) in it.
+
+If the tree has more than one mode, return them in any order.
+
+Assume a BST is defined as follows:
+
+    The left subtree of a node contains only nodes with keys less than or equal to the node's key.
+    The right subtree of a node contains only nodes with keys greater than or equal to the node's key.
+    Both the left and right subtrees must also be binary search trees.
+
+ 
+
+Example 1:
+
+Input: root = [1,null,2,2]
+Output: [2]
+
+Example 2:
+
+Input: root = [0]
+Output: [0]
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findMode(self, root: Optional[TreeNode]) -> List[int]:        
+        if root == None:
+            return []
+        
+        elif root.left == None and root.right == None:
+            return [root.val]
+        
+        vals = []
+        
+        self.inorder(root, vals)
+        
+        dic = {}
+        
+        for val in vals:
+            if val in dic:
+                dic[val] += 1
+            else:
+                dic[val] = 1
+        
+        res = []
+        cur_max = 0
+                
+        for key, value in dic.items():
+            if cur_max < value:
+                res = []
+                res.append(key)
+                cur_max = value
+            elif cur_max == value:
+                res.append(key)
+                
+        return res
+    
+    def inorder(self, root, vals):
+        if root == None:
+            return
+        
+        self.inorder(root.left, vals)
+        vals.append(root.val)
+        self.inorder(root.right, vals)
+
+```
+
 ## Reverse Integer
 
 ```py
@@ -1640,6 +1776,66 @@ class Solution:
                 cur_min = min(temp, num * cur_min, num)
                 max_pdt = max(max_pdt, cur_max)
         return max_pdt
+```
+
+## Kth Smallest Element in a Sorted Matrix
+
+```py
+'''
+Kth Smallest Element in a Sorted Matrix
+Medium
+
+Given an n x n matrix where each of the rows and columns are sorted in ascending order, return the kth smallest element in the matrix.
+
+Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+
+ 
+
+Example 1:
+
+Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
+Output: 13
+Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
+
+Example 2:
+
+Input: matrix = [[-5]], k = 1
+Output: -5
+'''
+
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        def merge(arr1, arr2):
+            l1 = 0
+            l2 = 0
+            
+            res = []
+            
+            while l1 < len(arr1) and l2 < len(arr2):
+                if arr1[l1] <= arr2[l2]:
+                    res.append(arr1[l1])
+                    l1 += 1
+                else:
+                    res.append(arr2[l2])
+                    l2 += 1
+                    
+            while l1 < len(arr1):
+                res.append(arr1[l1])
+                l1 += 1
+                
+            while l2 < len(arr2):
+                res.append(arr2[l2])
+                l2 += 1
+                    
+            return res
+        
+        elements = []
+        
+        for arr in matrix:
+            elements = merge(elements, arr)
+            
+        return elements[k-1]
+
 ```
 
 ## Sqrt x
@@ -3438,6 +3634,57 @@ class Solution:
             res.append(s)
             
         return res
+
+```
+
+## Number Complement
+
+```py
+'''
+Number Complement
+Easy
+
+The complement of an integer is the integer you get when you flip all the 0's to 1's and all the 1's to 0's in its binary representation.
+
+    For example, The integer 5 is "101" in binary and its complement is "010" which is the integer 2.
+
+Given an integer num, return its complement.
+
+ 
+
+Example 1:
+
+Input: num = 5
+Output: 2
+Explanation: The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.
+
+Example 2:
+
+Input: num = 1
+Output: 0
+Explanation: The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0.
+'''
+
+
+class Solution:
+    def findComplement(self, num: int) -> int:
+        binary = bin(num)[2:]
+        
+        b = ""
+        
+        for bit in binary:
+            if bit == '1':
+                b += '0'
+            else:
+                b += '1'
+                
+        dec = 0
+        
+        for i, char in enumerate(reversed(b)):
+            if char == '1':
+                dec += (2 ** i)
+            
+        return dec
 
 ```
 
