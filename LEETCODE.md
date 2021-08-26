@@ -1746,6 +1746,57 @@ class Solution:
 
 ```
 
+## Check If All 1's Are at Least Length K Places Away
+
+```py
+'''
+Check If All 1's Are at Least Length K Places Away
+Easy
+
+Given an array nums of 0s and 1s and an integer k, return True if all 1's are at least k places away from each other, otherwise return False.
+
+ 
+
+Example 1:
+
+Input: nums = [1,0,0,0,1,0,0,1], k = 2
+Output: true
+Explanation: Each of the 1s are at least 2 places away from each other.
+
+Example 2:
+
+Input: nums = [1,0,0,1,0,1], k = 2
+Output: false
+Explanation: The second 1 and third 1 are only one apart from each other.
+
+Example 3:
+
+Input: nums = [1,1,1,1,1], k = 0
+Output: true
+
+Example 4:
+
+Input: nums = [0,1,0,1], k = 1
+Output: true
+'''
+
+
+class Solution:
+    def kLengthApart(self, nums: List[int], k: int) -> bool:
+        spaces = []
+        
+        for i in range(len(nums)):
+            if nums[i] == 1:
+                spaces.append(i)
+                                
+        for i in range(len(spaces)-1):
+            if abs(spaces[i+1] - spaces[i]) <= k:
+                return False
+            
+        return True
+
+```
+
 ## Maximum Product Subarray
 
 ```py
@@ -1776,6 +1827,72 @@ class Solution:
                 cur_min = min(temp, num * cur_min, num)
                 max_pdt = max(max_pdt, cur_max)
         return max_pdt
+```
+
+## Build an Array With Stack Operations
+
+```py
+'''
+Build an Array With Stack Operations
+Easy
+
+Given an array target and an integer n. In each iteration, you will read a number from  list = {1,2,3..., n}.
+
+Build the target array using the following operations:
+
+    Push: Read a new element from the beginning list, and push it in the array.
+    Pop: delete the last element of the array.
+    If the target array is already built, stop reading more elements.
+
+Return the operations to build the target array. You are guaranteed that the answer is unique.
+
+ 
+
+Example 1:
+
+Input: target = [1,3], n = 3
+Output: ["Push","Push","Pop","Push"]
+Explanation: 
+Read number 1 and automatically push in the array -> [1]
+Read number 2 and automatically push in the array then Pop it -> [1]
+Read number 3 and automatically push in the array -> [1,3]
+
+Example 2:
+
+Input: target = [1,2,3], n = 3
+Output: ["Push","Push","Push"]
+
+Example 3:
+
+Input: target = [1,2], n = 4
+Output: ["Push","Push"]
+Explanation: You only need to read the first 2 numbers and stop.
+
+Example 4:
+
+Input: target = [2,3,4], n = 4
+Output: ["Push","Pop","Push","Push","Push"]
+'''
+
+
+class Solution:
+    def buildArray(self, target: List[int], n: int) -> List[str]:
+        hs = set(target)
+        res = []
+        count = 0
+        
+        for i in range(1, n+1):
+            res.append("Push")
+            count += 1
+            if i not in hs:
+                res.append("Pop")
+                count -= 1
+                
+            if count >= len(target):
+                break
+                
+        return res
+
 ```
 
 ## Kth Smallest Element in a Sorted Matrix
@@ -2013,6 +2130,58 @@ class Solution:
             top2 += 1
             
         return res
+
+```
+
+## Find Words That Can Be Formed by Characters
+
+```py
+'''
+Find Words That Can Be Formed by Characters
+Easy
+
+You are given an array of strings words and a string chars.
+
+A string is good if it can be formed by characters from chars (each character can only be used once).
+
+Return the sum of lengths of all good strings in words.
+
+ 
+
+Example 1:
+
+Input: words = ["cat","bt","hat","tree"], chars = "atach"
+Output: 6
+Explanation: The strings that can be formed are "cat" and "hat" so the answer is 3 + 3 = 6.
+
+Example 2:
+
+Input: words = ["hello","world","leetcode"], chars = "welldonehoneyr"
+Output: 10
+Explanation: The strings that can be formed are "hello" and "world" so the answer is 5 + 5 = 10.
+'''
+
+
+class Solution:
+    def countCharacters(self, words: List[str], chars: str) -> int:  
+        res = []
+        
+        for word in words:
+            temp = word
+            
+            for c in chars:
+                temp = temp.replace(c, "", 1)
+                
+                if temp == "":
+                    res.append(word)
+                    break
+                                        
+        length = 0
+        
+        for word in res:
+            length += len(word)
+            
+        return length
 
 ```
 
